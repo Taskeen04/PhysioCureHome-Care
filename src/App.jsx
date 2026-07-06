@@ -42,14 +42,24 @@ export default function App() {
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
-        body { background: var(--bg-light); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+        
+        /* FIX: Resetting root containers to allow full browser width */
+        html, body, #root { 
+          width: 100% !important; 
+          max-width: 100% !important; 
+          margin: 0 !important; 
+          padding: 0 !important; 
+          overflow-x: hidden; 
+        }
+        
+        body { background: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.8s ease forwards; }
 
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 8%; background: linear-gradient(90deg,#0F172A,#2563EB); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; box-shadow: 0 6px 20px rgba(37,99,235,0.25); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 4%; background: linear-gradient(90deg,#0F172A,#2563EB); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; box-shadow: 0 6px 20px rgba(37,99,235,0.25); width: 100%; }
         .logo{
           display:flex;
           flex-wrap: nowrap;
@@ -75,7 +85,7 @@ export default function App() {
         
         .menu-icon { display: none; font-size: 28px; color: white; cursor: pointer; user-select: none; }
 
-        section { padding: 90px 8%; }
+        section { padding: 90px 4%; width: 100%; }
         
         .hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; min-height: 85vh; background: linear-gradient(135deg, #DCEEFF 0%, #E8FFF4 50%, #FFF6DE 100%); }
         .hero h1 { font-size: 3.5rem; line-height: 1.1; font-weight: 800; margin-bottom: 20px; color: var(--text-dark); }
@@ -166,7 +176,7 @@ export default function App() {
         .about-img { width: 100%; border-radius: 30px; box-shadow: var(--shadow); }
         .about-content h2 { font-size: 2.2rem; margin-bottom: 20px; line-height: 1.2; }
 
-        footer { background: #1a2b3c; color: #fff; padding: 60px 8% 30px; text-align: center; }
+        footer { background: #1a2b3c; color: #fff; padding: 60px 4% 30px; text-align: center; width: 100%; }
         .social-icons { display: flex; justify-content: center; gap: 20px; margin: 30px 0; }
         .social-icons a { color: #fff; font-size: 1.4rem; opacity: 0.7; transition: var(--transition); text-decoration: none; }
         .social-icons a:hover { opacity: 1; transform: translateY(-5px); color: var(--primary); }
@@ -208,7 +218,6 @@ export default function App() {
           }
           .nav-links.show { display: flex; }
           
-          /* FIX: Ensure links are visible and spaced correctly on mobile */
           .nav-links a { 
             color: var(--text-dark); 
             margin: 12px 25px; 
@@ -224,9 +233,9 @@ export default function App() {
             grid-template-columns: 1fr;
             gap: 20px;
           }
-            .about-content h2{
+          .about-content h2{
             font-size: 1.8rem;
-            }
+          }
 
           .hero, .contact-container, .about-section { grid-template-columns: 1fr; text-align: center; }
           .hero h1 { font-size: 2.5rem; }
@@ -255,7 +264,6 @@ export default function App() {
         }
       `}</style>
 
-      {/* Floating Call Button */}
       <a href="tel:+919014063048" className="float-wa">
         <i className="fas fa-phone"></i>
       </a>
