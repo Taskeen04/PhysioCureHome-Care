@@ -2,6 +2,21 @@ import React, { useState } from "react";
 
 import asli from "./assets/asli.webp";
 
+// Static arrays defined outside component to optimize memory and prevent unnecessary re-creations during re-renders
+const services = [
+  { title: "Orthopaedic Rehabilitation", img: "Ortho.webp" },
+  { title: "Neurological Rehabilitation", img: "neuro.webp" },
+  { title: "Post-Surgery Rehabilitation", img: "post.webp" },
+  { title: "Sports Injury Rehabilitation", img: "https://plus.unsplash.com/premium_photo-1661767448598-f42428886f1c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3BvcnRzJTIwaW5qdXJ5JTIwcmVoYWJpbGl0YXRpb258ZW58MHx8MHx8fDA%3D" },
+];
+
+const faqs = [
+  { q: "Do you provide home visits?", a: "Yes, I provide professional physiotherapy services exclusively at the comfort of your home across Hyderabad." },
+  { q: "How do I book an appointment?", a: "You can book an appointment easily by clicking the WhatsApp button or by filling out the contact form below." },
+  { q: "Which areas do you cover?", a: "I cover major areas in Hyderabad including Banjara Hills, Jubilee Hills, Gachibowli, Madhapur, and more." },
+  { q: "What conditions do you treat?", a: "I treat various conditions including back pain, neck pain, sports injuries, stroke rehab, post-surgery recovery, and neurological disorders." }
+];
+
 export default function App() {
   const [formData, setFormData] = useState({ name: "", phone: "", problem: "" });
   const [activeFaq, setActiveFaq] = useState(null);
@@ -13,25 +28,9 @@ export default function App() {
     window.open(`https://wa.me/919014063048?text=${message}`, "_blank");
   };
 
-  const services = [
-    { title: "Orthopaedic Rehabilitation", img: "Ortho.webp" },
-    { title: "Neurological Rehabilitation", img: "neuro.webp" },
-    { title: "Post-Surgery Rehabilitation", img: "post.webp" },
-    { title: "Sports Injury Rehabilitation", img: "https://plus.unsplash.com/premium_photo-1661767448598-f42428886f1c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3BvcnRzJTIwaW5qdXJ5JTIwcmVoYWJpbGl0YXRpb258ZW58MHx8MHx8fDA%3D" },
-  ];
-
-  const faqs = [
-    { q: "Do you provide home visits?", a: "Yes, I provide professional physiotherapy services exclusively at the comfort of your home across Hyderabad." },
-    { q: "How do I book an appointment?", a: "You can book an appointment easily by clicking the WhatsApp button or by filling out the contact form below." },
-    { q: "Which areas do you cover?", a: "I cover major areas in Hyderabad including Banjara Hills, Jubilee Hills, Gachibowli, Madhapur, and more." },
-    { q: "What conditions do you treat?", a: "I treat various conditions including back pain, neck pain, sports injuries, stroke rehab, post-surgery recovery, and neurological disorders." }
-  ];
-
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-
         :root {
           --primary: #2563EB;
           --primary-soft: #DBEAFE;
@@ -94,14 +93,14 @@ export default function App() {
         .hero h1 span { color: var(--primary); }
         .hero p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 35px; max-width: 580px; }
         .hero-img {
-    width: 100%;
-    max-width: 550px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 30px;
-    box-shadow: 20px 20px 60px rgba(0,0,0,0.08);
-    transition: var(--transition);
-}
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 30px;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
         .hero-img:hover { transform: scale(1.02); }
         
         .highlights { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
@@ -285,6 +284,7 @@ export default function App() {
             alt="PhysioCure Logo"
             width="60"
             height="60"
+            decoding="async"
           />
           <span>PhysioCure Home Care</span>
         </div>
@@ -319,6 +319,10 @@ export default function App() {
             className="hero-img"
             src={asli}
             alt="Professional Home Physiotherapy"
+            width="550"
+            height="380"
+            fetchpriority="high"
+            decoding="async"
           />
         </div>
       </section>
@@ -337,6 +341,7 @@ export default function App() {
                 width="350"
                 height="250"
                 loading="lazy"
+                decoding="async"
               />
               <div className="card-content">
                 <h3>{s.title}</h3>
@@ -446,7 +451,15 @@ export default function App() {
 
       <section id="about" className="about-section">
         <div>
-          <img className="about-img" src="https://images.unsplash.com/photo-1576086213369-97a306dca664?auto=format&fit=crop&q=80&w=800" alt="Dr. Adil" />
+          <img 
+            className="about-img" 
+            src="https://images.unsplash.com/photo-1576086213369-97a306dca664?auto=format&fit=crop&q=80&w=800" 
+            alt="Dr. Adil" 
+            width="500"
+            height="500"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
         <div className="about-content">
           <p style={{ color: 'var(--primary)', fontWeight: 'bold', marginBottom: '10px' }}>MEET THE EXPERT</p>
