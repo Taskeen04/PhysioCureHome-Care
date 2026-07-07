@@ -300,7 +300,13 @@ export default function App() {
           </div>
         </div>
         <div>
-          <img className="hero-img" src="https://plus.unsplash.com/premium_photo-1683133816393-b04d94c65872?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHByb2Zlc3Npb25hbCUyMFBoeXNpb3RoZXJhcHklMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D" alt="Physiotherapy" />
+         <img
+  className="hero-img"
+  src="/hero.webp"
+  alt="Professional Home Physiotherapy"
+  width="600"
+  height="500"
+/>
         </div>
       </section>
 
