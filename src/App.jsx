@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import asli from "./assets/asli.webp";
+
 export default function App() {
   const [formData, setFormData] = useState({ name: "", phone: "", problem: "" });
   const [activeFaq, setActiveFaq] = useState(null);
@@ -91,7 +93,15 @@ export default function App() {
         .hero h1 { font-size: 3.5rem; line-height: 1.1; font-weight: 800; margin-bottom: 20px; color: var(--text-dark); }
         .hero h1 span { color: var(--primary); }
         .hero p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 35px; max-width: 580px; }
-        .hero-img { width: 100%; border-radius: 30px; box-shadow: 20px 20px 60px rgba(0,0,0,0.08); transition: var(--transition); }
+        .hero-img {
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 30px;
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.08);
+    transition: var(--transition);
+}
         .hero-img:hover { transform: scale(1.02); }
         
         .highlights { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
@@ -271,11 +281,11 @@ export default function App() {
       <nav>
         <div className="logo">
           <img
-  src="/logo.webp"
-  alt="PhysioCure Logo"
-  width="60"
-  height="60"
-/>
+            src="/logo.webp"
+            alt="PhysioCure Logo"
+            width="60"
+            height="60"
+          />
           <span>PhysioCure Home Care</span>
         </div>
         <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
@@ -305,13 +315,11 @@ export default function App() {
           </div>
         </div>
         <div>
-         <img
-  className="hero-img"
-  src="/hero.webp"
-  alt="Professional Home Physiotherapy"
-  width="600"
-  height="500"
-/>
+          <img
+            className="hero-img"
+            src={asli}
+            alt="Professional Home Physiotherapy"
+          />
         </div>
       </section>
 
@@ -324,12 +332,12 @@ export default function App() {
           {services.map((s, idx) => (
             <div className="card fade-in" key={idx}>
               <img
-  src={s.img}
-  alt={s.title}
-  width="350"
-  height="250"
-  loading="lazy"
-/>
+                src={s.img}
+                alt={s.title}
+                width="350"
+                height="250"
+                loading="lazy"
+              />
               <div className="card-content">
                 <h3>{s.title}</h3>
                 <p style={{ fontSize: '0.85rem', color: '#666' }}>Advanced therapeutic interventions tailored for effective pain relief and recovery at home.</p>
