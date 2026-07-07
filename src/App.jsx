@@ -12,9 +12,9 @@ export default function App() {
   };
 
   const services = [
-    { title: "Orthopaedic Rehabilitation", img: "Ortho.png" },
-    { title: "Neurological Rehabilitation", img: "neuro.png" },
-    { title: "Post-Surgery Rehabilitation", img: "postsurgery.png" },
+    { title: "Orthopaedic Rehabilitation", img: "Ortho.webp" },
+    { title: "Neurological Rehabilitation", img: "neuro.webp" },
+    { title: "Post-Surgery Rehabilitation", img: "post.webp" },
     { title: "Sports Injury Rehabilitation", img: "https://plus.unsplash.com/premium_photo-1661767448598-f42428886f1c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3BvcnRzJTIwaW5qdXJ5JTIwcmVoYWJpbGl0YXRpb258ZW58MHx8MHx8fDA%3D" },
   ];
 
@@ -270,7 +270,7 @@ export default function App() {
 
       <nav>
         <div className="logo">
-          <img src="/logo.jpeg" alt="Logo" />
+          <img src="/logo.webp" alt="Logo" />
           <span>PhysioCure Home Care</span>
         </div>
         <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
