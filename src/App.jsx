@@ -270,7 +270,12 @@ export default function App() {
 
       <nav>
         <div className="logo">
-          <img src="/logo.webp" alt="Logo" />
+          <img
+  src="/logo.webp"
+  alt="PhysioCure Logo"
+  width="60"
+  height="60"
+/>
           <span>PhysioCure Home Care</span>
         </div>
         <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
@@ -318,7 +323,13 @@ export default function App() {
         <div className="services-grid">
           {services.map((s, idx) => (
             <div className="card fade-in" key={idx}>
-              <img src={s.img} alt={s.title} />
+              <img
+  src={s.img}
+  alt={s.title}
+  width="350"
+  height="250"
+  loading="lazy"
+/>
               <div className="card-content">
                 <h3>{s.title}</h3>
                 <p style={{ fontSize: '0.85rem', color: '#666' }}>Advanced therapeutic interventions tailored for effective pain relief and recovery at home.</p>
