@@ -5,14 +5,15 @@
     <link rel="icon" type="image/webp" href="/logo.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Resource Preconnections for Performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Optimized Preconnections -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-    <link rel="preconnect" href="https://images.unsplash.com" />
     
-    <!-- Critical Font Loading -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" />
+    <!-- Non-Render-Blocking Google Fonts with swap fallback -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" as="style" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" />
+    </noscript>
     
     <!-- SEO Meta Tags -->
     <title>PhysioCure | At-Home Physiotherapy & Rehabilitation in Hyderabad</title>
