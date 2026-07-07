@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./app.css";
+import "./App.css";
 import asli from "./assets/asli.webp";
 
 // Static arrays defined globally to optimize memory allocations and prevent redraw penalties
