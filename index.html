@@ -5,9 +5,21 @@
     <link rel="icon" type="image/webp" href="/logo.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Optimized Preconnections -->
+    <!-- Enterprise Technical SEO & Security Meta Tags -->
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="PhysioCure" />
+
+    <!-- Preconnect & DNS Prefetch to Optimize Load Time -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
     
+    <!-- Preload LCP Hero Image (Vite rewrites this path automatically on build) -->
+    <link rel="preload" href="/src/assets/asli.webp" as="image" type="image/webp" />
+
     <!-- Non-Render-Blocking Google Fonts with swap fallback -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" as="style" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
@@ -15,7 +27,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" />
     </noscript>
     
-    <!-- SEO Meta Tags -->
+    <!-- Primary Meta Tags -->
     <title>PhysioCure | At-Home Physiotherapy & Rehabilitation in Hyderabad</title>
     <meta name="description" content="Looking for the best home physiotherapy in Hyderabad? PhysioCure Home Care provides expert physiotherapy at home for back pain, neck pain, knee pain, stroke rehabilitation, neurological disorders, post-surgery recovery, sports injuries and elderly care. Professional physiotherapists, doorstep treatment, WhatsApp booking available." />
     <meta name="keywords" content="physiotherapy at home Hyderabad, best physiotherapist in Hyderabad, home visit physiotherapist Hyderabad, home physiotherapy Hyderabad, physiotherapy near me, home care physical therapy, back pain physiotherapy Hyderabad, neck pain physiotherapy, knee pain physiotherapy, shoulder pain physiotherapy, sports injury physiotherapy, post surgery rehabilitation Hyderabad, neurological rehabilitation home visit, stroke rehabilitation Hyderabad, paralysis physiotherapy, elderly physiotherapy at home, orthopaedic physiotherapy at home, physiotherapist for senior citizens, home physio Hyderabad, rehabilitation services Hyderabad, PhysioCure Home Care" />
@@ -23,116 +35,282 @@
     
     <!-- Robots and Indexing -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <link rel="canonical" href="https://physiocurehome-care.pages.dev/" />
+    <link rel="canonical" href="https://physiocurehomecare.online/" />
     <meta name="google-site-verification" content="cRkSibF6AX0SKaOABVofNZj-aEbFX0WdweevWW2ZAP8" />
     
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook / WhatsApp Preview -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://physiocurehome-care.pages.dev/" />
+    <meta property="og:url" content="https://physiocurehomecare.online/" />
     <meta property="og:title" content="PhysioCure | At-Home Physiotherapy & Rehabilitation in Hyderabad" />
     <meta property="og:description" content="Get professional, evidence-based physiotherapy treatment at home in Hyderabad. Highly experienced physiotherapists specializing in orthopaedic, neurological, post-surgery, and sports rehab." />
-    <meta property="og:image" content="https://physiocurehome-care.pages.dev/logo.webp" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://physiocurehomecare.online/logo.webp" />
+    <meta property="og:locale" content="en_IN" />
     <meta property="og:site_name" content="PhysioCure Home Care" />
     
-    <!-- Twitter -->
+    <!-- Twitter Card Meta Tags -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://physiocurehome-care.pages.dev/" />
+    <meta property="twitter:url" content="https://physiocurehomecare.online/" />
     <meta property="twitter:title" content="PhysioCure | At-Home Physiotherapy & Rehabilitation in Hyderabad" />
     <meta property="twitter:description" content="Get professional, evidence-based physiotherapy treatment at home in Hyderabad. Highly experienced physiotherapists specializing in orthopaedic, neurological, post-surgery, and sports rehab." />
-    <meta property="twitter:image" content="https://physiocurehome-care.pages.dev/logo.webp" />
+    <meta property="twitter:image" content="https://physiocurehomecare.online/logo.webp" />
     
-    <!-- Browser styling -->
+    <!-- Apple & Mobile Web App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="PhysioCure" />
+    <link rel="apple-touch-icon" href="/logo.webp" />
+    
+    <!-- Microsoft Metadata -->
+    <meta name="msapplication-TileColor" content="#2563EB" />
+    <meta name="msapplication-TileImage" content="/logo.webp" />
+    
+    <!-- Geographic and Browser Styling Meta Tags -->
     <meta name="theme-color" content="#ffffff" />
     <meta name="geo.region" content="IN-TG" />
     <meta name="geo.placename" content="Hyderabad" />
+    <meta name="geo.position" content="17.385044;78.486671" />
+    <meta name="ICBM" content="17.385044, 78.486671" />
     
-    <!-- JSON-LD Structured Data Schema -->
+    <!-- Enterprise-Grade JSON-LD Schema Graph -->
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Physiotherapist",
-  "name": "PhysioCure Home Care",
-  "url": "https://physiocurehome-care.pages.dev/",
-  "image": "https://physiocurehome-care.pages.dev/logo.webp",
-  "logo": "https://physiocurehome-care.pages.dev/logo.webp",
-  "telephone": "+91 9014063048",
-  "priceRange": "$$",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Hyderabad",
-    "addressRegion": "Telangana",
-    "addressCountry": "India"
-  },
-  "areaServed": [
+  "@graph": [
     {
-      "@type": "AdministrativeArea",
-      "name": "Hyderabad, Telangana, India"
-    }
-  ],
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-      ],
-      "opens": "08:00",
-      "closes": "20:00"
-    }
-  ],
-  "sameAs": [],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Physiotherapy Services",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Home Physiotherapy",
-          "description": "Professional physiotherapeutic sessions provided in the comfort and privacy of your home."
-        }
+      "@type": "Organization",
+      "@id": "https://physiocurehomecare.online/#organization",
+      "name": "PhysioCure Home Care",
+      "url": "https://physiocurehomecare.online/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://physiocurehomecare.online/#logo",
+        "url": "https://physiocurehomecare.online/logo.webp",
+        "caption": "PhysioCure Home Care Logo"
       },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Orthopaedic Rehabilitation",
-          "description": "Advanced therapeutic interventions tailored for effective pain relief and recovery at home."
-        }
+      "image": {
+        "@id": "https://physiocurehomecare.online/#logo"
       },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Neurological Rehabilitation",
-          "description": "Specialized therapeutic physical therapy for post-stroke, neurological disorders, and motor balance recovery."
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Post-Surgery Rehabilitation",
-          "description": "Hospital-grade home care physiotherapy to ensure safe, progressive physical recovery following surgery."
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Sports Injury Rehabilitation",
-          "description": "Expert evidence-based physical therapy designed to accelerate athletic recovery and safely restore peak function."
-        }
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-90140-63048",
+        "contactType": "customer service",
+        "areaServed": "IN",
+        "availableLanguage": ["English", "Telugu", "Hindi"]
       }
-    ]
-  }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://physiocurehomecare.online/#website",
+      "url": "https://physiocurehomecare.online/",
+      "name": "PhysioCure Home Care",
+      "description": "At-Home Physiotherapy & Rehabilitation Services in Hyderabad",
+      "publisher": {
+        "@id": "https://physiocurehomecare.online/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://physiocurehomecare.online/#webpage",
+      "url": "https://physiocurehomecare.online/",
+      "name": "PhysioCure | At-Home Physiotherapy & Rehabilitation in Hyderabad",
+      "isPartOf": {
+        "@id": "https://physiocurehomecare.online/#website"
+      },
+      "about": {
+        "@id": "https://physiocurehomecare.online/#physiotherapist"
+      },
+      "description": "Looking for the best home physiotherapy in Hyderabad? PhysioCure Home Care provides expert physiotherapy at home for back pain, neck pain, knee pain, stroke rehabilitation, neurological disorders, post-surgery recovery, sports injuries and elderly care.",
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": ["Physiotherapist", "MedicalBusiness", "LocalBusiness"],
+      "@id": "https://physiocurehomecare.online/#physiotherapist",
+      "name": "PhysioCure Home Care",
+      "image": "https://physiocurehomecare.online/logo.webp",
+      "logo": "https://physiocurehomecare.online/logo.webp",
+      "url": "https://physiocurehomecare.online/",
+      "telephone": "+919014063048",
+      "email": "physiocurehomecare1@gmail.com",
+      "currenciesAccepted": "INR",
+      "paymentAccepted": "Cash, UPI, Google Pay, PhonePe, Paytm",
+      "priceRange": "$$",
+      "medicalSpecialty": "Physiotherapy",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Hyderabad",
+        "addressRegion": "Telangana",
+        "addressCountry": "IN"
+      },
+      "sameAs": [],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "17.385044",
+        "longitude": "78.486671"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "08:00",
+          "closes": "20:00"
+        }
+      ],
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Banjara Hills, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Jubilee Hills, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Gachibowli, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Kondapur, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Mehdipatnam, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Tolichowki, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Hitech City, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Attapur, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Aaramgarh, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Dilsukhnagar, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Chandrayangutta, Hyderabad"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Hyderabad, Telangana, India"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://physiocurehomecare.online/#services",
+      "serviceType": "At-Home Physiotherapy & Rehabilitation",
+      "provider": {
+        "@id": "https://physiocurehomecare.online/#physiotherapist"
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Hyderabad, Telangana, India"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Physiotherapy Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Home Physiotherapy",
+              "description": "Professional physiotherapeutic sessions provided in the comfort and privacy of your home."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Orthopaedic Rehabilitation",
+              "description": "Advanced therapeutic interventions tailored for effective pain relief and recovery at home."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Neurological Rehabilitation",
+              "description": "Specialized therapeutic physical therapy for post-stroke, neurological disorders, and motor balance recovery."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Post-Surgery Rehabilitation",
+              "description": "Hospital-grade home care physiotherapy to ensure safe, progressive physical recovery following surgery."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Sports Injury Rehabilitation",
+              "description": "Expert evidence-based physical therapy designed to accelerate athletic recovery and safely restore peak function."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://physiocurehomecare.online/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do you provide home visits?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, I provide professional physiotherapy services exclusively at the comfort of your home across Hyderabad."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I book an appointment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can book an appointment easily by clicking the WhatsApp button or by filling out the contact form below."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which areas do you cover?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "I cover major areas in Hyderabad including Banjara Hills, Jubilee Hills, Gachibowli, Madhapur, and more."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What conditions do you treat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "I treat various conditions including back pain, neck pain, sports injuries, stroke rehab, post-surgery recovery, and neurological disorders."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
   </head>
