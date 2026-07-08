@@ -1,0 +1,27 @@
+{
+  "name": "PhysioCure Home Care",
+  "short_name": "PhysioCure",
+  "description": "Professional Home Physiotherapy Services at Your Doorstep.",
+  "theme_color": "#0A66C2",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr"
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
