@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://physiocurehome-care.pages.dev/sitemap.xml
+Sitemap: https://physiocurehomecare.online/sitemap.xml
