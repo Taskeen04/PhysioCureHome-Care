@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import "./App.css";
 import asli from "./assets/asli.webp";
+import {
+  FaPhoneAlt,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaClock,
+  FaWhatsapp,
+  FaInstagram,
+  FaYoutube
+} from "react-icons/fa";
 
 // Static arrays defined globally to optimize memory allocations and prevent redraw penalties
 const services = [
@@ -31,7 +40,7 @@ export default function App() {
   return (
     <>
       <a href="tel:+919014063048" className="float-wa" aria-label="Call PhysioCure Home Care Support">
-        <i className="fas fa-phone"></i>
+        <FaPhoneAlt />
       </a>
 
       {/* Semantic Header & Navigation */}
@@ -155,19 +164,23 @@ export default function App() {
               <p>Ready to start your journey to a pain-free life? Reach out to me directly.</p>
               <ul className="info-list" aria-label="Contact Information">
                 <li>
-                  <div className="info-icon" aria-hidden="true"><i className="fas fa-phone"></i></div>
+                  <div className="info-icon" aria-hidden="true"><FaPhoneAlt />
+                  </div>
                   <div>+91 90140 63048</div>
                 </li>
                 <li>
-                  <div className="info-icon" aria-hidden="true"><i className="fas fa-envelope"></i></div>
+                  <div className="info-icon" aria-hidden="true"><FaEnvelope />
+                  </div>
                   <div>physiocurehomecare1@gmail.com</div>
                 </li>
                 <li>
-                  <div className="info-icon" aria-hidden="true"><i className="fas fa-map-marker-alt"></i></div>
+                  <div className="info-icon" aria-hidden="true"><FaMapMarkerAlt />
+                  </div>
                   <div>Home Services Across Hyderabad</div>
                 </li>
                 <li>
-                  <div className="info-icon" aria-hidden="true"><i className="fas fa-clock"></i></div>
+                  <div className="info-icon" aria-hidden="true"><FaClock />
+                  </div>
                   <div>Mon - Sun: 8:00 AM - 8:00 PM</div>
                 </li>
               </ul>
@@ -228,7 +241,7 @@ export default function App() {
           <div className="area-grid">
             {["Banjara Hills", "Jubilee Hills", "Gachibowli", "Kondapur", "Mehdipatnam", "Tolichowki", "Hitech City", "Attapur", "Aaramgarh", "Dilsukhnagar", "Chandrayangutta"].map((area, idx) => (
               <div className="area-tag" key={idx}>
-                <i className="fas fa-map-marker-alt" aria-hidden="true"></i> {area}
+                <faMapMarkerAlt aria-hidden="true"/> {area}
               </div>
             ))}
           </div>
