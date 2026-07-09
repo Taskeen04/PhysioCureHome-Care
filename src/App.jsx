@@ -16,7 +16,7 @@ const services = [
   { title: "Orthopaedic Rehabilitation", img: "Ortho.webp" },
   { title: "Neurological Rehabilitation", img: "neuro.webp" },
   { title: "Post-Surgery Rehabilitation", img: "post.webp" },
-  { title: "Sports Injury Rehabilitation", img: "https://plus.unsplash.com/premium_photo-1661767448598-f42428886f1c?w=700&auto=format&fit=crop&q=80&fm=webp" },
+  { title: "Sports Injury Rehabilitation", img: "/sports.webp" },
 ];
 
 const faqs = [
@@ -314,13 +314,7 @@ export default function App() {
               <div>
                 <img 
                   className="about-img" 
-                  src="https://images.unsplash.com/photo-1576086213369-97a306dca664?auto=format&fit=crop&q=80&w=800&fm=webp" 
-                  srcSet="
-                    https://images.unsplash.com/photo-1576086213369-97a306dca664?auto=format&fit=crop&q=80&w=400&fm=webp 400w,
-                    https://images.unsplash.com/photo-1576086213369-97a306dca664?auto=format&fit=crop&q=80&w=800&fm=webp 800w,
-                    https://images.unsplash.com/photo-1576086213369-97a306dca664?auto=format&fit=crop&q=80&w=1200&fm=webp 1200w
-                  "
-                  sizes="(max-width: 968px) 100vw, 500px"
+                  src="/about.webp" 
                   alt="Dr. Adil providing physiotherapy" 
                   width="500"
                   height="500"
