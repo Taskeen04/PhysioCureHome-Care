@@ -129,6 +129,7 @@ export default function App() {
               alt="Professional Home Physiotherapy Treatment Session"
               width="550"
               height="380"
+              loading = "eager"
               fetchPriority="high"
               decoding="async"
             />
