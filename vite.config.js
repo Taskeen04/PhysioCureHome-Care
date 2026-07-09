@@ -6,14 +6,6 @@ export default defineConfig({
   build: {
     cssCodeSplit: true,
     sourcemap: false,
-    minify: 'esbuild',
     chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          react: ['react', 'react-dom']
-        }
-      }
-    }
   }
 })
