@@ -321,7 +321,9 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-M34PE68V7H');
+  gtag('config', 'G-M34PE68V7H', {
+  send_page_view: false
+});
 </script>
 <script type="application/ld+json">
 {
@@ -367,5 +369,10 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+window.addEventListener('load', () => {
+  gtag('event', 'page_view');
+});
+</script>
   </body>
 </html>
