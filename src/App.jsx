@@ -73,7 +73,7 @@ const Hero = memo(() => {
     <section className="hero fade-in" aria-label="Introduction">
       <div>
         <p>YOUR RECOVERY, OUR MISSION</p>
-        <h1>Professional <span>Home Physiotherapy</span> Services at Your Doorstep</h1>
+        <h1>Professional <span>At Home Physiotherapy</span> Services at Your Doorstep</h1>
         <p>Get expert, evidence-based physiotherapy treatment in the comfort and privacy of your home. No more traffic or clinic waiting times.</p>
         <a
   className="btn btn-wa"
