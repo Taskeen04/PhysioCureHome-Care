@@ -501,16 +501,15 @@ export default function App() {
   return (
     <>
       <div className="call-wrapper">
-  <span className="call-text">📞 Call Now</span>
-
-  <a
-    href="tel:+919014063048"
-    className="float-wa"
-    aria-label="Call PhysioCure Home Care Support"
-  >
-    <FaPhoneAlt />
-  </a>
-</div>
+        <span className="call-text">Call Now</span>
+        <a
+          href="tel:+919014063048"
+          className="float-wa"
+          aria-label="Call PhysioCure Home Care Support"
+        >
+          <FaPhoneAlt />
+        </a>
+      </div>
       {/* Semantic Header & Navigation */}
       <Header />
 

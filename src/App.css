@@ -560,9 +560,6 @@ footer {
 }
 
 .float-wa {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
   width: 65px;
   height: 65px;
   background: #25D366;
@@ -574,88 +571,98 @@ footer {
   font-size: 30px;
   text-decoration: none;
   z-index: 9999;
-}
-.call-wrapper{
-position:fixed;
-bottom:30px;
-right:30px;
-z-index:9999;
-display:flex;
-align-items:center;
-flex-direction:row-reverse;
-gap:14px;
-animation:callBounce 4s infinite;
+  position: relative;
+  flex-shrink: 0;
+  animation: buttonBounce 4s infinite;
 }
 
-.call-text{
-background:#fff;
-color:#0b5ed7;
-font-weight:700;
-padding:10px 18px;
-border-radius:40px;
-box-shadow:0 8px 20px rgba(0,0,0,.18);
-opacity:0;
-transform:translateX(-15px);
-animation:showBubble 7s infinite;
-white-space:nowrap;
-margin-right:10px;
+.call-wrapper {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 12px;
+  pointer-events: none;
 }
 
-@keyframes showBubble{
-
-0%{
-opacity:0;
-transform:translateX(-15px);
+.call-wrapper * {
+  pointer-events: auto;
 }
 
-5%{
-opacity:1;
-transform:translateX(0);
+.call-text {
+  background: #fff;
+  color: #0b5ed7;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 40px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  opacity: 0;
+  transform: translate3d(-20px, 0, 0);
+  animation: showBubble 8s infinite;
+  white-space: nowrap;
+  visibility: hidden;
 }
 
-35%{
-opacity:1;
+@keyframes showBubble {
+  0% {
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+    visibility: hidden;
+  }
+  1% {
+    visibility: visible;
+  }
+  10% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+  35% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+  45% {
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+    visibility: visible;
+  }
+  46% {
+    visibility: hidden;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+    visibility: hidden;
+  }
 }
 
-45%{
-opacity:0;
-transform:translateX(-15px);
-}
-
-100%{
-opacity:0;
-}
-}
-
-@keyframes callBounce{
-
-0%,100%{
-transform:translateY(0);
-}
-
-5%{
-transform:translateY(-22px) scale(1.08);
-}
-
-10%{
-transform:translateY(0);
-}
-
-15%{
-transform:translateY(-18px) scale(1.05);
-}
-
-20%{
-transform:translateY(0);
-}
-
-25%{
-transform:translateY(-12px);
-}
-
-30%{
-transform:translateY(0);
-}
+@keyframes buttonBounce {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  5% {
+    transform: translate3d(0, -26px, 0) scale(1.1);
+  }
+  10% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  15% {
+    transform: translate3d(0, -18px, 0) scale(1.06);
+  }
+  20% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  25% {
+    transform: translate3d(0, -10px, 0) scale(1.02);
+  }
+  30% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
 }
 /* Core Web Vitals Optimization: content-visibility & render containment */
 #benefits, #about, #testimonials, #faq {
