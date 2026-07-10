@@ -576,6 +576,18 @@ footer {
   z-index: 9999;
 }
 
+/* Core Web Vitals Optimization: content-visibility & render containment */
+#benefits, #about, #testimonials, #faq {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
+/* Hardware GPU acceleration for ultra-smooth layout rendering and touch events */
+.float-wa, .card, .why-card, .area-tag, .btn {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
 /* Responsive breakdowns */
 @media(max-width: 968px) {
   nav { 
