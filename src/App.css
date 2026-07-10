@@ -577,13 +577,14 @@ footer {
 }
 .call-wrapper{
 position:fixed;
-bottom:25px;
-right:25px;
+bottom:30px;
+right:30px;
 z-index:9999;
 display:flex;
 align-items:center;
-gap:12px;
-animation:callBounce 7s infinite;
+flex-direction:row-reverse;
+gap:14px;
+animation:callBounce 4s infinite;
 }
 
 .call-text{
@@ -632,7 +633,7 @@ transform:translateY(0);
 }
 
 5%{
-transform:translateY(-12px);
+transform:translateY(-22px) scale(1.08);
 }
 
 10%{
@@ -640,10 +641,18 @@ transform:translateY(0);
 }
 
 15%{
-transform:translateY(-8px);
+transform:translateY(-18px) scale(1.05);
 }
 
 20%{
+transform:translateY(0);
+}
+
+25%{
+transform:translateY(-12px);
+}
+
+30%{
 transform:translateY(0);
 }
 }
