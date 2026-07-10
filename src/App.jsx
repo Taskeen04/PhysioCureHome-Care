@@ -75,7 +75,13 @@ const Hero = memo(() => {
         <p>YOUR RECOVERY, OUR MISSION</p>
         <h1>Professional <span>Home Physiotherapy</span> Services at Your Doorstep</h1>
         <p>Get expert, evidence-based physiotherapy treatment in the comfort and privacy of your home. No more traffic or clinic waiting times.</p>
-        <a className="btn btn-wa" href="https://wa.me/919014063048" aria-label="Book Home Visit via WhatsApp">
+        <a
+  className="btn btn-wa"
+  href="https://wa.me/919014063048?text=Hello%20PhysioCure%20Home%20Care,%0A%0AI%20am%20interested%20in%20booking%20a%20home%20physiotherapy%20appointment.%0A%0APatient%20Name:%0ALocation:%0ACondition:%0A%0AThank%20you."
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Book Home Visit via WhatsApp"
+>
           <FaWhatsapp style={{ marginRight: '10px', verticalAlign: 'middle' }} /> Book Home Visit via WhatsApp
         </a>
         <div className="highlights">
