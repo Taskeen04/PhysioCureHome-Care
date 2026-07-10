@@ -598,6 +598,7 @@ opacity:0;
 transform:translateX(15px);
 animation:showBubble 7s infinite;
 white-space:nowrap;
+margin-right:10px;
 }
 
 @keyframes showBubble{
