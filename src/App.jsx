@@ -237,7 +237,7 @@ const ContactSection = memo(() => {
       <div className="contact-container">
         <div className="contact-info">
           <p style={{ color: 'var(--primary)', fontWeight: 'bold', marginBottom: '10px' }}>GET IN TOUCH</p>
-          <h2 id="contact-section-heading" style={{ fontSize: '2rem', marginBottom: '20px', fontWeight: '800' }}>Book an Appointment</h2>
+          <h2 id="contact-section-heading" style={{ fontSize: '2rem', marginBottom: '20px', fontWeight: '800', color:'#0F172A' }}>Book an Appointment</h2>
           <p>Ready to start your journey to a pain-free life? Reach out to me directly.</p>
           <ul className="info-list" aria-label="Contact Information">
             <li>
