@@ -764,7 +764,8 @@ footer {
 
 
 .hero-tagline-bottom{
-    margin-top:22px;
+    margin-top:20px;
+    margin-bottom: 0;
     text-align:center;
     font-size:1rem;
     font-weight:700;
