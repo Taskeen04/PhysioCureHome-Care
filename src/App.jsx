@@ -72,7 +72,6 @@ const Hero = memo(() => {
   return (
     <section className="hero fade-in" aria-label="Introduction">
       <div>
-        <p>YOUR RECOVERY, OUR MISSION</p>
         <h1>Professional <span>At Home Physiotherapy</span> Services at Your Doorstep</h1>
         <p>Get expert, evidence-based physiotherapy treatment in the comfort and privacy of your home. No more traffic or clinic waiting times.</p>
         <a
@@ -84,11 +83,9 @@ const Hero = memo(() => {
 >
           <FaWhatsapp style={{ marginRight: '10px', verticalAlign: 'middle' }} /> Book Home Visit via WhatsApp
         </a>
-        <div className="highlights">
-          <div className="highlight-item">🏠 Home Visit</div>
-          <div className="highlight-item">👨‍⚕️ Expert Care</div>
-          <div className="highlight-item">⏰ Flexible Timings</div>
-        </div>
+        <p className="hero-tagline-bottom">
+  YOUR RECOVERY, OUR MISSION
+</p>
       </div>
       <div>
         <img

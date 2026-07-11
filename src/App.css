@@ -761,3 +761,15 @@ footer {
     margin: 0;
   }
 }
+
+
+.hero-tagline-bottom{
+    margin-top:22px;
+    text-align:center;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--primary);
+    opacity:0.9;
+}
