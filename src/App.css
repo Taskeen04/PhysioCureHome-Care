@@ -108,7 +108,7 @@ nav {
 }
 
 section { 
-  padding: 90px 4%; 
+  padding: 40px 4%; 
   width: 100%; 
 }
 
@@ -118,7 +118,7 @@ section {
   grid-template-columns: 1.2fr 0.8fr; 
   gap: 50px; 
   align-items: center; 
-  min-height: 85vh; 
+  min-height: 65vh; 
   background: linear-gradient(135deg, #DCEEFF 0%, #E8FFF4 50%, #FFF6DE 100%); 
 }
 
