@@ -118,7 +118,7 @@ section {
   grid-template-columns: 1.2fr 0.8fr; 
   gap: 50px; 
   align-items: center; 
-  min-height: 65vh; 
+  min-height: 55vh; 
   padding-top: 10px;
   padding-bottom:0;
   background: linear-gradient(135deg, #DCEEFF 0%, #E8FFF4 50%, #FFF6DE 100%); 
@@ -226,8 +226,8 @@ section {
 
 /* Services section grids */
 .services-section { 
-  margin-top:-35px;
-  padding-top:20px;
+  margin-top:0;
+  padding-top:5px;
   background: linear-gradient(135deg, #DFF7EC, #EAF4FF); 
 }
 
@@ -735,7 +735,7 @@ footer {
     grid-template-columns: 1fr; 
     text-align: center; 
     padding-top:10px;
-    padding-bottom:0;
+    padding-bottom:10;
     min-height:auto;
   }
   
@@ -772,7 +772,7 @@ footer {
 
 .hero-tagline-bottom{
     margin-top:8px;
-    margin-bottom: -15px;
+    margin-bottom: 0;
     text-align:center;
     font-size:1rem;
     font-weight:700;
