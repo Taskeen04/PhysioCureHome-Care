@@ -14,10 +14,18 @@ import {
 
 // Static arrays defined globally to optimize memory allocations and prevent redraw penalties
 const services = [
-  { title: "Orthopaedic Rehabilitation", img: "/Ortho.webp" },
-  { title: "Neurological Rehabilitation", img: "/neuro.webp" },
-  { title: "Post-Surgery Rehabilitation", img: "/post.webp" },
-  { title: "Sports Injury Rehabilitation", img: "/sports.webp" },
+  { title: "Orthopaedic Rehabilitation", img: "/Ortho.webp",
+    description: "Expert orthopedic home physiotherapy in Hyderabad for knee pain, arthritis, fractures, joint replacement and post-surgery rehabilitation."
+   },
+  { title: "Neurological Rehabilitation", img: "/neuro.webp",
+    description: "Professional neurological home physiotherapy in Hyderabad for stroke, Parkinson's disease, spinal cord injury and balance training."
+   },
+  { title: "Post-Surgery Rehabilitation", img: "/post.webp",
+    description: "Sports physiotherapy in Hyderabad for ligament injuries, muscle strains, ACL recovery and faster return to sports."
+   },
+  { title: "Sports Injury Rehabilitation", img: "/sports.webp",
+    description: "Home physiotherapy after surgery in Hyderabad for faster recovery, mobility improvement and pain management."
+   },
 ];
 
 const faqs = [
@@ -72,8 +80,8 @@ const Hero = memo(() => {
   return (
     <section className="hero fade-in" aria-label="Introduction">
       <div>
-        <h1>Professional <span>At Home Physiotherapy</span> Services at Your Doorstep</h1>
-        <p>Get expert, evidence-based physiotherapy treatment in the comfort and privacy of your home. No more traffic or clinic waiting times.</p>
+        <h1>Professional <span>Home Physiotherapy</span> Services in Hyderabad</h1>
+        <p>Get expert home physiotherapy services in Hyderabad for orthopedic rehabilitation, neurological rehabilitation, sports injuries and post-surgical recovery at your doorstep.</p>
         <a
   className="btn btn-wa"
   href="https://wa.me/919014063048?text=Hello%20PhysioCure%20Home%20Care,%0A%0AI%20am%20interested%20in%20booking%20a%20home%20physiotherapy%20appointment."
@@ -110,14 +118,14 @@ const Services = memo(({ triggerRef }) => {
     <section id="services" ref={triggerRef} className="services-section" aria-labelledby="services-heading">
       <div className="section-title">
         <p>What I Offer</p>
-        <h2 id="services-heading">Our Specialized Services</h2>
+        <h2 id="services-heading">Our Specialized Home Physiotherapy Services in Hyderabad</h2>
       </div>
       <div className="services-grid">
         {services.map((s, idx) => (
           <article className="card fade-in" key={idx} aria-labelledby={`service-title-${idx}`}>
             <img
               src={s.img}
-              alt={`${s.title} session`}
+              alt={`${s.title} Home Physiotherapy Service in Hyderabad`}
               width="350"
               height="250"
               loading="lazy"
@@ -125,7 +133,9 @@ const Services = memo(({ triggerRef }) => {
             />
             <div className="card-content">
               <h3 id={`service-title-${idx}`}>{s.title}</h3>
-              <p style={{ fontSize: '0.85rem', color: '#334155' }}>Advanced therapeutic interventions tailored for effective pain relief and recovery at home.</p>
+              <p style={{ fontSize: '0.85rem', color: '#334155' }}>
+  {s.description}
+</p>
             </div>
           </article>
         ))}
