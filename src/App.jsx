@@ -35,11 +35,40 @@ const faqs = [
   { q: "What conditions do you treat?", a: "I treat various conditions including back pain, neck pain, sports injuries, stroke rehab, post-surgery recovery, and neurological disorders." }
 ];
 
-// 1. Isolated Header Component to prevent menu-toggles from re-rendering the whole page
+const conditionsList = [
+  "Total knee replacement",
+  "Stroke",
+  "Ligament injury",
+  "Back pain",
+  "Frozen shoulder"
+];
+
+// 1. Isolated Header Component with Conditions Dropdown
 const Header = memo(() => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [conditionsOpen, setConditionsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
   const toggleMenu = useCallback(() => setMenuOpen(prev => !prev), []);
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    setConditionsOpen(false);
+  }, []);
+
+  // Handle click outside to close the dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setConditionsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header>
@@ -66,6 +95,37 @@ const Header = memo(() => {
           <a href="#services" onClick={closeMenu}>Services</a>
           <a href="#why" onClick={closeMenu}>Why Us</a>
           <a href="#contact" onClick={closeMenu}>Book My Appointment</a>
+          
+          {/* Conditions Dropdown Item */}
+          <div 
+            className="nav-dropdown-wrapper" 
+            ref={dropdownRef}
+            onMouseEnter={() => setConditionsOpen(true)}
+            onMouseLeave={() => setConditionsOpen(false)}
+          >
+            <button
+              type="button"
+              className="nav-dropdown-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                setConditionsOpen(prev => !prev);
+              }}
+              aria-expanded={conditionsOpen}
+              aria-haspopup="true"
+            >
+              Conditions
+            </button>
+            {conditionsOpen && (
+              <ul className="conditions-dropdown" role="menu">
+                {conditionsList.map((item, index) => (
+                  <li key={index} role="menuitem" onClick={closeMenu}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
           <a href="#contact" onClick={closeMenu}>Contact</a>
           <a href="#about" onClick={closeMenu}>About</a>
         </div>
@@ -75,29 +135,20 @@ const Header = memo(() => {
 });
 Header.displayName = "Header";
 
-// 2. Memoized Hero Section to prevent unnecessary updates
+// 2. Memoized Hero Section with ONLY the centered Green Call CTA
 const Hero = memo(() => {
   return (
     <section className="hero fade-in" aria-label="Introduction">
       <div>
         <h1><span>Physiotherapy At Home</span> Services In Hyderabad </h1>
         <p>Get personalized physiotherapy at your doorstep for pain management, post-surgery rehabilitation, neurological conditions and mobility recovery.</p>
-        <div className="hero-cta-group">
+        <div className="hero-cta-container">
           <a
             className="btn btn-call"
             href="tel:+919014063048"
             aria-label="Call Now - Book Home Visit"
           >
             📞 Call Now - Book Home Visit
-          </a>
-          <a
-            className="btn btn-wa"
-            href="https://wa.me/919014063048?text=Hello%20PhysioCure%20Home%20Care,%0A%0AI%20am%20interested%20in%20booking%20a%20home%20physiotherapy%20appointment."
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="WhatsApp us"
-          >
-            WhatsApp us <FaWhatsapp style={{ marginLeft: "10px", verticalAlign: "middle" }} />
           </a>
         </div>
         <p className="hero-tagline-bottom">
@@ -516,16 +567,20 @@ export default function App() {
 
   return (
     <>
+      {/* Floating WhatsApp CTA with subtle gentle bounce animation */}
       <div className="call-wrapper">
-        <span className="call-text">Call Now</span>
+        <span className="call-text">WhatsApp us</span>
         <a
-          href="tel:+919014063048"
+          href="https://wa.me/919014063048?text=Hello%20PhysioCure%20Home%20Care,%0A%0AI%20am%20interested%20in%20booking%20a%20home%20physiotherapy%20appointment."
+          target="_blank"
+          rel="noopener noreferrer"
           className="float-wa"
-          aria-label="Call PhysioCure Home Care Support"
+          aria-label="Contact PhysioCure Home Care on WhatsApp"
         >
-          <FaPhoneAlt />
+          <FaWhatsapp />
         </a>
       </div>
+
       {/* Semantic Header & Navigation */}
       <Header />
 
