@@ -80,7 +80,7 @@ const Hero = memo(() => {
   return (
     <section className="hero fade-in" aria-label="Introduction">
       <div>
-        <h1><span>Physiotherapy At Home</span> In Hyderabad 📍</h1>
+        <h1><span>Physiotherapy At Home</span>Services In Hyderabad </h1>
         <p>Get personalized physiotherapy at your doorstep for pain management, post-surgery rehabilitation, neurological conditions and mobility recovery.</p>
         <div className="hero-cta-group">
           <a
