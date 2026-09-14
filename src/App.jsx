@@ -12,22 +12,31 @@ import {
   FaYoutube
 } from "react-icons/fa";
 
-// Static arrays defined globally to optimize memory allocations and prevent redraw penalties
+// Static data for services
 const services = [
-  { title: "Orthopaedic Rehabilitation", img: "/Ortho.webp",
+  { 
+    title: "Orthopaedic Rehabilitation", 
+    img: "/Ortho.webp",
     description: "Expert orthopedic home physiotherapy in Hyderabad for knee pain, arthritis, fractures, joint replacement and post-surgery rehabilitation."
-   },
-  { title: "Neurological Rehabilitation", img: "/neuro.webp",
+  },
+  { 
+    title: "Neurological Rehabilitation", 
+    img: "/neuro.webp",
     description: "Professional neurological home physiotherapy in Hyderabad for stroke, Parkinson's disease, spinal cord injury and balance training."
-   },
-  { title: "Post-Surgery Rehabilitation", img: "/post.webp",
+  },
+  { 
+    title: "Post-Surgery Rehabilitation", 
+    img: "/post.webp",
     description: "Sports physiotherapy in Hyderabad for ligament injuries, muscle strains, ACL recovery and faster return to sports."
-   },
-  { title: "Sports Injury Rehabilitation", img: "/sports.webp",
+  },
+  { 
+    title: "Sports Injury Rehabilitation", 
+    img: "/sports.webp",
     description: "Home physiotherapy after surgery in Hyderabad for faster recovery, mobility improvement and pain management."
-   },
+  }
 ];
 
+// Static data for FAQs
 const faqs = [
   { q: "Do you provide home visits?", a: "Yes, I provide professional physiotherapy services exclusively at the comfort of your home across Hyderabad." },
   { q: "How do I book an appointment?", a: "You can book an appointment easily by clicking the WhatsApp button or by filling out the contact form below." },
@@ -35,27 +44,62 @@ const faqs = [
   { q: "What conditions do you treat?", a: "I treat various conditions including back pain, neck pain, sports injuries, stroke rehab, post-surgery recovery, and neurological disorders." }
 ];
 
-const conditionsList = [
-  "Total knee replacement",
-  "Stroke",
-  "Ligament injury",
-  "Back pain",
-  "Frozen shoulder"
+// Dropdown condition navigation items (exact wording)
+const conditionsNavItems = [
+  { name: "Total knee replacement", slug: "total-knee-replacement" },
+  { name: "Stroke", slug: "stroke" },
+  { name: "Ligament injury", slug: "ligament-injury" },
+  { name: "Back pain", slug: "back-pain" },
+  { name: "Frozen shoulder", slug: "frozen-shoulder" }
 ];
 
-// 1. Isolated Header Component with Conditions Dropdown
-const Header = memo(() => {
+// Condition page data with exact headings, local images, and professional descriptions
+const conditionsData = {
+  "total-knee-replacement": {
+    headingSuffix: "Total Knee Replacement",
+    image: "/conditions/total-knee-replacement.webp",
+    description:
+      "Recovering from a total knee replacement requires structured, progressive rehabilitation to restore joint mobility, rebuild quadriceps strength, and re-establish safe walking patterns. Home physiotherapy allows patients to receive expert post-surgical care in the comfort and safety of their home during the critical early recovery phases. Personalized treatment focuses on swelling management, pain reduction, gentle range-of-motion exercises, and gradual functional retraining to help you safely regain independence in daily activities."
+  },
+  "stroke": {
+    headingSuffix: "Stroke",
+    image: "/conditions/stroke.webp",
+    description:
+      "Stroke recovery requires dedicated neurological rehabilitation to encourage neuroplasticity, improve motor control, and regain functional independence. In-home physiotherapy provides a familiar, supportive environment where therapy can directly target everyday movements. Rehabilitation focuses on bed mobility, sitting and standing balance, gait re-education, muscle tone management, and targeted strength training designed to help individuals regain confidence and functional mobility at a safe, steady pace."
+  },
+  "ligament-injury": {
+    headingSuffix: "Ligament Injury",
+    image: "/conditions/ligament-injury.webp",
+    description:
+      "Ligament injuries—such as ACL, PCL, or ankle sprains—require carefully phased rehabilitation to protect healing tissues while preventing stiffness and muscle wasting. Home physiotherapy provides targeted physical therapy tailored to your injury grade and recovery stage. Treatment incorporates evidence-based exercises to reduce swelling, restore joint stability, rebuild muscular strength around the joint, and safely progress balance and coordination toward functional recovery."
+  },
+  "back-pain": {
+    headingSuffix: "Back Pain",
+    image: "/conditions/back-pain.webp",
+    description:
+      "Back pain, whether acute or chronic, can significantly restrict movement and disrupt everyday life. Home physiotherapy provides a comprehensive assessment to identify contributing postural, muscular, or movement factors. Treatment combines gentle mobilization, core stabilization, targeted muscle stretching, ergonomic education, and customized active exercises to alleviate discomfort, improve spinal flexibility, and help prevent recurring pain episodes."
+  },
+  "frozen-shoulder": {
+    headingSuffix: "Frozen Shoulder",
+    image: "/conditions/frozen-shoulder.webp",
+    description:
+      "Frozen shoulder (adhesive capsulitis) causes progressive stiffness, persistent discomfort, and severe restrictions in arm movement. Home physiotherapy provides guided, stage-appropriate therapeutic exercises to gently restore glenohumeral joint mobility and alleviate muscular tension. Sessions focus on gentle stretching, scapular stabilization, passive and active-assisted range of motion, and posture correction to gradually improve shoulder function and ease daily tasks."
+  }
+};
+
+// 1. Header Component with robust CLICK-based Conditions Dropdown
+const Header = memo(({ onNavigate, onSectionClick }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [conditionsOpen, setConditionsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const toggleMenu = useCallback(() => setMenuOpen(prev => !prev), []);
+  const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
   const closeMenu = useCallback(() => {
     setMenuOpen(false);
     setConditionsOpen(false);
   }, []);
 
-  // Handle click outside to close the dropdown
+  // Dropdown stays open once clicked; closes ONLY when clicked outside or on a link
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -70,10 +114,21 @@ const Header = memo(() => {
     };
   }, []);
 
+  const handleConditionSelect = (slug) => {
+    setConditionsOpen(false);
+    setMenuOpen(false);
+    onNavigate(`/conditions/${slug}`);
+  };
+
+  const handleLogoClick = () => {
+    closeMenu();
+    onNavigate("/");
+  };
+
   return (
     <header>
       <nav aria-label="Main Navigation">
-        <div className="logo">
+        <div className="logo" onClick={handleLogoClick} role="button" tabIndex={0}>
           <img
             src="/logo.webp"
             alt="PhysioCure Home Care Logo"
@@ -92,23 +147,24 @@ const Header = memo(() => {
           {menuOpen ? "✕" : "☰"}
         </button>
         <div className={`nav-links ${menuOpen ? "show" : ""}`}>
-          <a href="#services" onClick={closeMenu}>Services</a>
-          <a href="#why" onClick={closeMenu}>Why Us</a>
-          <a href="#contact" onClick={closeMenu}>Book My Appointment</a>
+          <a href="#services" onClick={(e) => { e.preventDefault(); closeMenu(); onSectionClick("services"); }}>
+            Services
+          </a>
+          <a href="#why" onClick={(e) => { e.preventDefault(); closeMenu(); onSectionClick("why"); }}>
+            Why Us
+          </a>
+          <a href="#contact" onClick={(e) => { e.preventDefault(); closeMenu(); onSectionClick("contact"); }}>
+            Book My Appointment
+          </a>
           
-          {/* Conditions Dropdown Item */}
-          <div 
-            className="nav-dropdown-wrapper" 
-            ref={dropdownRef}
-            onMouseEnter={() => setConditionsOpen(true)}
-            onMouseLeave={() => setConditionsOpen(false)}
-          >
+          {/* Conditions Clickable Dropdown */}
+          <div className="nav-dropdown-wrapper" ref={dropdownRef}>
             <button
               type="button"
               className="nav-dropdown-btn"
               onClick={(e) => {
                 e.stopPropagation();
-                setConditionsOpen(prev => !prev);
+                setConditionsOpen((prev) => !prev);
               }}
               aria-expanded={conditionsOpen}
               aria-haspopup="true"
@@ -117,17 +173,25 @@ const Header = memo(() => {
             </button>
             {conditionsOpen && (
               <ul className="conditions-dropdown" role="menu">
-                {conditionsList.map((item, index) => (
-                  <li key={index} role="menuitem" onClick={closeMenu}>
-                    {item}
+                {conditionsNavItems.map((item, index) => (
+                  <li 
+                    key={index} 
+                    role="menuitem" 
+                    onClick={() => handleConditionSelect(item.slug)}
+                  >
+                    {item.name}
                   </li>
                 ))}
               </ul>
             )}
           </div>
 
-          <a href="#contact" onClick={closeMenu}>Contact</a>
-          <a href="#about" onClick={closeMenu}>About</a>
+          <a href="#contact" onClick={(e) => { e.preventDefault(); closeMenu(); onSectionClick("contact"); }}>
+            Contact
+          </a>
+          <a href="#about" onClick={(e) => { e.preventDefault(); closeMenu(); onSectionClick("about"); }}>
+            About
+          </a>
         </div>
       </nav>
     </header>
@@ -135,12 +199,12 @@ const Header = memo(() => {
 });
 Header.displayName = "Header";
 
-// 2. Memoized Hero Section with ONLY the centered Green Call CTA
+// 2. Memoized Hero Section (with "YOUR RECOVERY, OUR MISSION" completely removed)
 const Hero = memo(() => {
   return (
     <section className="hero fade-in" aria-label="Introduction">
       <div>
-        <h1><span>Physiotherapy At Home</span> Services In Hyderabad </h1>
+        <h1><span>Physiotherapy At Home</span> In Hyderabad 📍</h1>
         <p>Get personalized physiotherapy at your doorstep for pain management, post-surgery rehabilitation, neurological conditions and mobility recovery.</p>
         <div className="hero-cta-container">
           <a
@@ -151,9 +215,6 @@ const Hero = memo(() => {
             📞 Call Now - Book Home Visit
           </a>
         </div>
-        <p className="hero-tagline-bottom">
-          YOUR RECOVERY, OUR MISSION
-        </p>
       </div>
       <div>
         <img
@@ -172,7 +233,54 @@ const Hero = memo(() => {
 });
 Hero.displayName = "Hero";
 
-// 3. Services Section with ref-attachment for IntersectionObserver tracking
+// 3. Condition Detail Page Component
+const ConditionPage = memo(({ conditionKey }) => {
+  const condition = conditionsData[conditionKey];
+
+  if (!condition) {
+    return (
+      <section className="condition-page">
+        <h1 className="condition-heading">Condition Not Found</h1>
+      </section>
+    );
+  }
+
+  return (
+    <section className="condition-page fade-in" aria-labelledby="condition-title">
+      <h1 id="condition-title" className="condition-heading">
+        <span>Physiotherapy At Home</span> for {condition.headingSuffix}
+      </h1>
+
+      <div className="condition-content">
+        <div className="condition-image-wrap">
+          <img
+            src={condition.image}
+            alt={`Physiotherapy At Home for ${condition.headingSuffix}`}
+            className="condition-img"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
+        <div className="condition-details">
+          <p>{condition.description}</p>
+          <div className="condition-cta">
+            <a
+              className="btn btn-call"
+              href="tel:+919014063048"
+              aria-label="Call Now - Book Home Visit"
+            >
+              📞 Call Now - Book Home Visit
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+});
+ConditionPage.displayName = "ConditionPage";
+
+// 4. Services Section
 const Services = memo(({ triggerRef }) => {
   return (
     <section id="services" ref={triggerRef} className="services-section" aria-labelledby="services-heading">
@@ -205,7 +313,7 @@ const Services = memo(({ triggerRef }) => {
 });
 Services.displayName = "Services";
 
-// 4. Memoized WhyChooseUs Section
+// 5. WhyChooseUs Section
 const WhyChooseUs = memo(() => {
   const points = [
     { t: "Home Visit", d: "Experience hospital-grade care without leaving your home.", i: "🏠" },
@@ -235,13 +343,13 @@ const WhyChooseUs = memo(() => {
 });
 WhyChooseUs.displayName = "WhyChooseUs";
 
-// 5. Highly Optimized Form Component to protect INP scores during typing interactions
+// 6. Contact Form Component
 const ContactForm = memo(() => {
   const [formData, setFormData] = useState({ name: "", phone: "", problem: "" });
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   }, []);
 
   const handleWhatsAppSubmit = useCallback((e) => {
@@ -297,7 +405,7 @@ const ContactForm = memo(() => {
 });
 ContactForm.displayName = "ContactForm";
 
-// 6. Memoized Contact Section containing the isolated form component
+// 7. Contact Section
 const ContactSection = memo(() => {
   return (
     <section id="contact" className="contact-section" aria-labelledby="contact-section-heading">
@@ -342,7 +450,7 @@ const ContactSection = memo(() => {
 });
 ContactSection.displayName = "ContactSection";
 
-// 7. Memoized Coverage Areas Section
+// 8. Coverage Areas Section
 const CoverageAreas = memo(() => {
   const areas = ["Banjara Hills", "Jubilee Hills", "Gachibowli", "Kondapur", "Mehdipatnam", "Tolichowki", "Hitech City", "Attapur", "Aaramgarh", "Dilsukhnagar", "Chandrayangutta"];
   return (
@@ -364,7 +472,7 @@ const CoverageAreas = memo(() => {
 });
 CoverageAreas.displayName = "CoverageAreas";
 
-// 8. Memoized Benefits Section
+// 9. Benefits Section
 const Benefits = memo(() => {
   const benefitsData = [
     { icon: "💪", title: "Pain Relief", text: "Reduce chronic and acute pain naturally without depending only on medications." },
@@ -394,7 +502,7 @@ const Benefits = memo(() => {
 });
 Benefits.displayName = "Benefits";
 
-// 9. Memoized About Expert Section
+// 10. About Expert Section
 const AboutExpert = memo(() => {
   return (
     <section id="about" className="about-section" aria-labelledby="about-heading">
@@ -424,7 +532,7 @@ const AboutExpert = memo(() => {
 });
 AboutExpert.displayName = "AboutExpert";
 
-// 10. Memoized Testimonials Section
+// 11. Testimonials Section
 const Testimonials = memo(() => {
   const reviews = [
     { n: "Rahul K.", m: "Excellent treatment for my chronic back pain. Dr. Adil is very professional and patient." },
@@ -451,12 +559,12 @@ const Testimonials = memo(() => {
 });
 Testimonials.displayName = "Testimonials";
 
-// 11. FAQ Component with isolated accordion toggle state
+// 12. FAQ Section
 const FAQSection = memo(() => {
   const [activeFaq, setActiveFaq] = useState(null);
   
   const toggleFaq = useCallback((idx) => {
-    setActiveFaq(prev => prev === idx ? null : idx);
+    setActiveFaq((prev) => (prev === idx ? null : idx));
   }, []);
 
   return (
@@ -508,7 +616,7 @@ const FAQSection = memo(() => {
 });
 FAQSection.displayName = "FAQSection";
 
-// 12. Memoized Footer Component
+// 13. Footer Component
 const Footer = memo(() => {
   return (
     <footer>
@@ -530,12 +638,24 @@ const Footer = memo(() => {
 });
 Footer.displayName = "Footer";
 
+// Main Application with Client-Side Routing and Dynamic Scrolling
 export default function App() {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [lazyLoaded, setLazyLoaded] = useState(false);
   const triggerRef = useRef(null);
 
+  // Sync state with browser Back/Forward navigation
   useEffect(() => {
-    // Immediate mounting fallback for search crawlers to maintain SEO scores
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  // IntersectionObserver for below-the-fold content optimization
+  useEffect(() => {
     if (
       typeof window === "undefined" ||
       !("IntersectionObserver" in window) ||
@@ -552,7 +672,7 @@ export default function App() {
           observer.disconnect();
         }
       },
-      { rootMargin: "400px" } // Preloads the dynamic sections early as the user approaches them
+      { rootMargin: "400px" }
     );
 
     if (triggerRef.current) {
@@ -562,8 +682,37 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
-  // Leverage React 19 native dynamic asset preloading API to fetch hashed production asset securely
+  // Preload primary hero asset
   preload(asli, { as: "image", fetchPriority: "high" });
+
+  // Navigation handlers
+  const handleNavigate = useCallback((path) => {
+    window.history.pushState({}, "", path);
+    setCurrentPath(path);
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleSectionClick = useCallback((sectionId) => {
+    if (window.location.pathname !== "/") {
+      window.history.pushState({}, "", "/");
+      setCurrentPath("/");
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, []);
+
+  // Determine active route
+  const conditionMatch = currentPath.match(/^\/conditions\/([a-z0-9-]+)$/);
+  const activeConditionSlug = conditionMatch ? conditionMatch[1] : null;
 
   return (
     <>
@@ -582,49 +731,36 @@ export default function App() {
       </div>
 
       {/* Semantic Header & Navigation */}
-      <Header />
+      <Header onNavigate={handleNavigate} onSectionClick={handleSectionClick} />
 
       {/* Semantic Main Content Wrap */}
       <main id="main-content">
-        
-        {/* Hero Section */}
-        <Hero />
-
-        {/* Services Section serving as the trigger for below-the-fold mounting */}
-        <Services triggerRef={triggerRef} />
-
-        {/* Why Choose Us Section */}
-        <WhyChooseUs />
-
-        {/* Contact & Appointment Booking Section */}
-        <ContactSection />
-
-        {/* Coverage Areas Section */}
-        <CoverageAreas />
-
-        {/* Dynamic below-the-fold lazy parsing to protect initial frame times and main-thread load */}
-        {lazyLoaded ? (
-          <>
-            {/* Benefits Section */}
-            <Benefits />
-
-            {/* About Expert Section */}
-            <AboutExpert />
-
-            {/* Testimonials Section */}
-            <Testimonials />
-
-            {/* FAQ Section */}
-            <FAQSection />
-
-            {/* Footer Section */}
-            <Footer />
-          </>
+        {activeConditionSlug ? (
+          /* Condition Page Route */
+          <ConditionPage conditionKey={activeConditionSlug} />
         ) : (
-          /* Pre-allocate height dynamically to avoid Layout Shift (CLS) on mount */
-          <div style={{ minHeight: "1500px" }} />
+          /* Homepage Route */
+          <>
+            <Hero />
+            <Services triggerRef={triggerRef} />
+            <WhyChooseUs />
+            <ContactSection />
+            <CoverageAreas />
+
+            {lazyLoaded ? (
+              <>
+                <Benefits />
+                <AboutExpert />
+                <Testimonials />
+                <FAQSection />
+              </>
+            ) : (
+              <div style={{ minHeight: "1500px" }} />
+            )}
+          </>
         )}
 
+        <Footer />
       </main>
     </>
   );

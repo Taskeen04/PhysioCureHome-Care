@@ -70,6 +70,7 @@ nav {
   white-space: nowrap;
   font-weight: 700;
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  cursor: pointer;
 }
 
 .logo img {
@@ -133,7 +134,7 @@ nav {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
   padding: 10px 0;
   list-style: none;
-  min-width: 215px;
+  min-width: 230px;
   z-index: 1002;
   text-align: left;
 }
@@ -279,6 +280,73 @@ section {
   transform: translateY(-3px); 
   box-shadow: 0 12px 25px rgba(37,211,102,0.4); 
   filter: brightness(1.05); 
+}
+
+/* Condition Detail Page Styling */
+.condition-page {
+  padding: 40px 4% 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.condition-heading {
+  font-size: 3.5rem;
+  line-height: 1.15;
+  font-weight: 800;
+  margin-bottom: 40px;
+  color: #000;
+  text-align: center;
+}
+
+.condition-heading span {
+  color: var(--primary);
+}
+
+.condition-content {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 50px;
+  align-items: center;
+  background: #ffffff;
+  padding: 45px;
+  border-radius: 30px;
+  box-shadow: var(--shadow);
+  border: 1px solid #D6E9FF;
+}
+
+.condition-image-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.condition-img {
+  width: 100%;
+  max-width: 480px;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.condition-details {
+  text-align: left;
+}
+
+.condition-details p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-gray);
+  margin-bottom: 25px;
+}
+
+.condition-cta {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 25px;
 }
 
 /* Section titles */
@@ -843,6 +911,37 @@ footer {
     justify-content: center;
     max-width: 100%;
   }
+
+  .condition-page {
+    padding: 25px 5% 50px;
+  }
+
+  .condition-heading {
+    font-size: 2.3rem;
+    margin-bottom: 25px;
+  }
+
+  .condition-content {
+    grid-template-columns: 1fr;
+    padding: 25px 20px;
+    gap: 25px;
+    text-align: center;
+  }
+
+  .condition-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    margin: 0 auto;
+  }
+
+  .condition-details {
+    text-align: center;
+  }
+
+  .condition-cta {
+    justify-content: center;
+  }
   
   section { 
     padding: 20px 5%; 
@@ -879,16 +978,12 @@ footer {
     padding: 14px 24px;
     font-size: 0.95rem;
   }
-}
 
-.hero-tagline-bottom {
-  margin-top: 16px;
-  margin-bottom: 0;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--primary);
-  opacity: 0.9;
+  .condition-heading {
+    font-size: 1.85rem;
+  }
+
+  .condition-details p {
+    font-size: 0.98rem;
+  }
 }
