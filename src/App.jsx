@@ -80,20 +80,29 @@ const Hero = memo(() => {
   return (
     <section className="hero fade-in" aria-label="Introduction">
       <div>
-        <h1>Professional <span>Home Physiotherapy</span> Services in Hyderabad</h1>
-        <p>Get expert home physiotherapy services in Hyderabad for orthopedic rehabilitation, neurological rehabilitation, sports injuries and post-surgical recovery at your doorstep.</p>
-        <a
-  className="btn btn-wa"
-  href="https://wa.me/919014063048?text=Hello%20PhysioCure%20Home%20Care,%0A%0AI%20am%20interested%20in%20booking%20a%20home%20physiotherapy%20appointment."
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Book Home Visit via WhatsApp"
->
-          <FaWhatsapp style={{ marginRight: '10px', verticalAlign: 'middle' }} /> Book Home Visit via WhatsApp
-        </a>
+        <h1><span>Physiotherapy At Home</span> In Hyderabad 📍</h1>
+        <p>Get personalized physiotherapy at your doorstep for pain management, post-surgery rehabilitation, neurological conditions and mobility recovery.</p>
+        <div className="hero-cta-group">
+          <a
+            className="btn btn-call"
+            href="tel:+919014063048"
+            aria-label="Call Now - Book Home Visit"
+          >
+            📞 Call Now - Book Home Visit
+          </a>
+          <a
+            className="btn btn-wa"
+            href="https://wa.me/919014063048?text=Hello%20PhysioCure%20Home%20Care,%0A%0AI%20am%20interested%20in%20booking%20a%20home%20physiotherapy%20appointment."
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp us"
+          >
+            WhatsApp us <FaWhatsapp style={{ marginLeft: "10px", verticalAlign: "middle" }} />
+          </a>
+        </div>
         <p className="hero-tagline-bottom">
-  YOUR RECOVERY, OUR MISSION
-</p>
+          YOUR RECOVERY, OUR MISSION
+        </p>
       </div>
       <div>
         <img
@@ -134,8 +143,8 @@ const Services = memo(({ triggerRef }) => {
             <div className="card-content">
               <h3 id={`service-title-${idx}`}>{s.title}</h3>
               <p style={{ fontSize: '0.85rem', color: '#334155' }}>
-  {s.description}
-</p>
+                {s.description}
+              </p>
             </div>
           </article>
         ))}
