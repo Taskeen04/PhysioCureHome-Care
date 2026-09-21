@@ -60,8 +60,7 @@ const conditionsData = {
     headingSuffix: "Total Knee Replacement",
     image: "/conditions/total_knee_replacement.webp",
     description:
-      "Recovering from a total knee replacement requires structured, progressive rehabilitation to restore joint mobility, rebuild quadriceps strength, and re-establish safe walking patterns. Home physiotherapy allows patients to receive expert post-surgical care in the comfort and safety of their home during the critical early recovery phases. Personalized treatment focuses on swelling management, pain reduction, gentle range-of-motion exercises, and gradual functional retraining to help you safely regain independence in daily activities."
-  },
+         "A Total Knee Replacement (TKR) is a life-changing surgery where damaged joint surfaces are replaced with artificial implants. While the surgeon fixes the joint, specialized physiotherapy is what actually brings it to life. It is the absolute key to eliminating stiffness, rebuilding muscle strength, and getting you back to walking pain-free. " },
   "stroke": {
     headingSuffix: "Stroke",
     image: "/conditions/Stroke.webp",
@@ -218,7 +217,7 @@ const Hero = memo(() => {
   return (
     <section className="hero fade-in" aria-label="Introduction">
       <div>
-        <h1><span>Physiotherapy At Home</span> In Hyderabad</h1>
+        <h1><span>Physiotherapy At Home</span> Services In Hyderabad</h1>
         <p>Get personalized physiotherapy at your doorstep for pain management, post-surgery rehabilitation, neurological conditions and mobility recovery.</p>
         <div className="hero-cta-container">
           <a
