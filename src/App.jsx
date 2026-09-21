@@ -54,13 +54,30 @@ const conditionsNavItems = [
   { name: "Frozen shoulder", slug: "frozen-shoulder" }
 ];
 
+// 3-Step Recovery Journey data for Total Knee Replacement
+const tkrRecoverySteps = [
+  {
+    phase: "Phase 1 (Weeks 1-2): Pain & Stiffness Control",
+    desc: "We focus on reducing surgical swelling, managing pain, and gently getting your knee to straighten fully and bend to 90 degrees."
+  },
+  {
+    phase: "Phase 2 (Weeks 3-6): Rebuilding Strength",
+    desc: "We activate your thigh muscles, improve your balance, and guide you to walk safely with less dependence on walking aids."
+  },
+  {
+    phase: "Phase 3 (Weeks 6+): Complete Independence",
+    desc: "We graduate you to climbing stairs effortlessly, walking longer distances, and returning to your favorite daily activities."
+  }
+];
+
 // Condition page data with exact headings, verified local image paths, and professional descriptions
 const conditionsData = {
   "total-knee-replacement": {
     headingSuffix: "Total Knee Replacement",
     image: "/conditions/total_knee_replacement.webp",
     description:
-         "A Total Knee Replacement (TKR) is a life-changing surgery where damaged joint surfaces are replaced with artificial implants. While the surgeon fixes the joint, specialized physiotherapy is what actually brings it to life. It is the absolute key to eliminating stiffness, rebuilding muscle strength, and getting you back to walking pain-free. " },
+      "A Total Knee Replacement (TKR) is a life-changing surgery where damaged joint surfaces are replaced with artificial implants. While the surgeon fixes the joint, specialized physiotherapy is what actually brings it to life. It is the absolute key to eliminating stiffness, rebuilding muscle strength, and getting you back to walking pain-free."
+  },
   "stroke": {
     headingSuffix: "Stroke",
     image: "/conditions/Stroke.webp",
@@ -217,7 +234,7 @@ const Hero = memo(() => {
   return (
     <section className="hero fade-in" aria-label="Introduction">
       <div>
-        <h1><span>Physiotherapy At Home</span> Services In Hyderabad</h1>
+        <h1><span>Physiotherapy At Home</span> In Hyderabad</h1>
         <p>Get personalized physiotherapy at your doorstep for pain management, post-surgery rehabilitation, neurological conditions and mobility recovery.</p>
         <div className="hero-cta-container">
           <a
@@ -348,7 +365,7 @@ const BackPainSlider = memo(({ condition }) => {
 });
 BackPainSlider.displayName = "BackPainSlider";
 
-// 4. Condition Detail Page Component (Routes to Slider for Back Pain, Standard View for Others)
+// 4. Condition Detail Page Component (with Total Knee Replacement 3-Step Journey)
 const ConditionPage = memo(({ conditionKey }) => {
   const condition = conditionsData[conditionKey];
 
@@ -369,30 +386,49 @@ const ConditionPage = memo(({ conditionKey }) => {
       {condition.slides ? (
         <BackPainSlider condition={condition} />
       ) : (
-        <div className="condition-content">
-          <div className="condition-image-wrap">
-            <img
-              src={condition.image}
-              alt={`Physiotherapy At Home for ${condition.headingSuffix}`}
-              className="condition-img"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
+        <>
+          <div className="condition-content">
+            <div className="condition-image-wrap">
+              <img
+                src={condition.image}
+                alt={`Physiotherapy At Home for ${condition.headingSuffix}`}
+                className="condition-img"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
 
-          <div className="condition-details">
-            <p>{condition.description}</p>
-            <div className="condition-cta">
-              <a
-                className="btn btn-call"
-                href="tel:+919014063048"
-                aria-label="Call Now - Book Home Visit"
-              >
-                <FaPhoneAlt className="btn-call-icon" aria-hidden="true" /> Call Now - Book Home Visit
-              </a>
+            <div className="condition-details">
+              <p>{condition.description}</p>
+              <div className="condition-cta">
+                <a
+                  className="btn btn-call"
+                  href="tel:+919014063048"
+                  aria-label="Call Now - Book Home Visit"
+                >
+                  <FaPhoneAlt className="btn-call-icon" aria-hidden="true" /> Call Now - Book Home Visit
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+
+          {/* Exclusive 3-Step Recovery Journey for Total Knee Replacement */}
+          {conditionKey === "total-knee-replacement" && (
+            <div className="tkr-journey-section">
+              <h2 className="tkr-journey-heading">
+                Your 3-Step Recovery Journey At Home
+              </h2>
+              <div className="tkr-journey-grid">
+                {tkrRecoverySteps.map((step, idx) => (
+                  <div className="tkr-phase-card" key={idx}>
+                    <h3>{step.phase}</h3>
+                    <p>{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
     </section>
   );

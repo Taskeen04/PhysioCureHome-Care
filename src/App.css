@@ -356,6 +356,62 @@ section {
   margin-top: 25px;
 }
 
+/* Total Knee Replacement 3-Step Journey Section */
+.tkr-journey-section {
+  margin-top: 55px;
+  width: 100%;
+}
+
+.tkr-journey-heading {
+  color: #000000;
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 35px;
+  line-height: 1.25;
+}
+
+.tkr-journey-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  align-items: stretch;
+}
+
+.tkr-phase-card {
+  background: #ffffff;
+  border: 1.5px solid #D6E9FF;
+  border-radius: 20px;
+  padding: 32px 26px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  height: 100%;
+}
+
+.tkr-phase-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary);
+}
+
+.tkr-phase-card h3 {
+  color: var(--primary);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  line-height: 1.35;
+}
+
+.tkr-phase-card p {
+  color: var(--text-gray);
+  font-size: 0.96rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
 /* Back Pain 4-Image Slider Controls & Layout */
 .slider-container {
   display: flex;
@@ -1032,6 +1088,25 @@ footer {
     justify-content: center;
   }
 
+  /* TKR 3-Step Journey responsiveness on tablet / mobile */
+  .tkr-journey-section {
+    margin-top: 40px;
+  }
+
+  .tkr-journey-heading {
+    font-size: 1.75rem;
+    margin-bottom: 25px;
+  }
+
+  .tkr-journey-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .tkr-phase-card {
+    padding: 24px 20px;
+  }
+
   /* Slider responsiveness on tablet / mobile */
   .slider-container {
     position: relative;
@@ -1105,6 +1180,10 @@ footer {
 
   .condition-details p {
     font-size: 0.98rem;
+  }
+
+  .tkr-journey-heading {
+    font-size: 1.5rem;
   }
 
   .slider-arrow-left {
