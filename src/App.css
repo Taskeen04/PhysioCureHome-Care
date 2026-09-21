@@ -270,6 +270,13 @@ section {
   filter: brightness(1.05); 
 }
 
+.btn-call-icon {
+  margin-right: 10px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  vertical-align: middle;
+}
+
 .btn-wa { 
   background: var(--secondary); 
   color: #fff; 
@@ -347,6 +354,87 @@ section {
   flex-wrap: wrap;
   align-items: center;
   margin-top: 25px;
+}
+
+/* Back Pain 4-Image Slider Controls & Layout */
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.slider-arrow {
+  background: #ffffff;
+  border: 1.5px solid #D6E9FF;
+  color: var(--primary);
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+  z-index: 5;
+}
+
+.slider-arrow:hover {
+  background: var(--primary);
+  color: #ffffff;
+  transform: scale(1.08);
+  border-color: var(--primary);
+}
+
+.slider-card {
+  flex: 1;
+  min-width: 0;
+}
+
+.slider-pagination {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.slider-counter {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.slider-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #CBD5E1;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: var(--transition);
+}
+
+.slider-dot.active {
+  background: var(--primary);
+  width: 24px;
+  border-radius: 10px;
 }
 
 /* Section titles */
@@ -903,8 +991,9 @@ footer {
     min-height: auto;
   }
   
+  /* Slightly bigger hero heading on tablet / small screens */
   .hero h1 { 
-    font-size: 2.5rem; 
+    font-size: 2.85rem; 
   }
 
   .hero-cta-container {
@@ -942,6 +1031,35 @@ footer {
   .condition-cta {
     justify-content: center;
   }
+
+  /* Slider responsiveness on tablet / mobile */
+  .slider-container {
+    position: relative;
+    display: block;
+  }
+
+  .slider-arrow {
+    position: absolute;
+    top: 140px;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  }
+
+  .slider-arrow-left {
+    left: -6px;
+  }
+
+  .slider-arrow-right {
+    right: -6px;
+  }
+
+  .slider-pagination {
+    justify-content: center;
+  }
   
   section { 
     padding: 20px 5%; 
@@ -970,8 +1088,10 @@ footer {
 }
 
 @media(max-width: 480px) {
+  /* Mobile-only slightly larger heading font size */
   .hero h1 {
-    font-size: 2.1rem;
+    font-size: 2.45rem;
+    line-height: 1.15;
   }
 
   .btn {
@@ -985,5 +1105,13 @@ footer {
 
   .condition-details p {
     font-size: 0.98rem;
+  }
+
+  .slider-arrow-left {
+    left: 2px;
+  }
+
+  .slider-arrow-right {
+    right: 2px;
   }
 }

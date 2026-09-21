@@ -9,7 +9,9 @@ import {
   FaClock,
   FaWhatsapp,
   FaInstagram,
-  FaYoutube
+  FaYoutube,
+  FaChevronLeft,
+  FaChevronRight
 } from "react-icons/fa";
 
 // Static data for services
@@ -44,11 +46,10 @@ const faqs = [
   { q: "What conditions do you treat?", a: "I treat various conditions including back pain, neck pain, sports injuries, stroke rehab, post-surgery recovery, and neurological disorders." }
 ];
 
-// Dropdown condition navigation items (exact wording)
+// Dropdown condition navigation items (Ligament injury completely removed)
 const conditionsNavItems = [
   { name: "Total knee replacement", slug: "total-knee-replacement" },
   { name: "Stroke", slug: "stroke" },
-  { name: "Ligament injury", slug: "ligament-injury" },
   { name: "Back pain", slug: "back-pain" },
   { name: "Frozen shoulder", slug: "frozen-shoulder" }
 ];
@@ -67,17 +68,30 @@ const conditionsData = {
     description:
       "Stroke recovery requires dedicated neurological rehabilitation to encourage neuroplasticity, improve motor control, and regain functional independence. In-home physiotherapy provides a familiar, supportive environment where therapy can directly target everyday movements. Rehabilitation focuses on bed mobility, sitting and standing balance, gait re-education, muscle tone management, and targeted strength training designed to help individuals regain confidence and functional mobility at a safe, steady pace."
   },
-  "ligament-injury": {
-    headingSuffix: "Ligament Injury",
-    image: "/conditions/ligament-injury.webp",
-    description:
-      "Ligament injuries—such as ACL, PCL, or ankle sprains—require carefully phased rehabilitation to protect healing tissues while preventing stiffness and muscle wasting. Home physiotherapy provides targeted physical therapy tailored to your injury grade and recovery stage. Treatment incorporates evidence-based exercises to reduce swelling, restore joint stability, rebuild muscular strength around the joint, and safely progress balance and coordination toward functional recovery."
-  },
   "back-pain": {
     headingSuffix: "Back Pain",
-    image: "/conditions/back-pain.webp",
-    description:
-      "Back pain, whether acute or chronic, can significantly restrict movement and disrupt everyday life. Home physiotherapy provides a comprehensive assessment to identify contributing postural, muscular, or movement factors. Treatment combines gentle mobilization, core stabilization, targeted muscle stretching, ergonomic education, and customized active exercises to alleviate discomfort, improve spinal flexibility, and help prevent recurring pain episodes."
+    slides: [
+      {
+        image: "/conditions/back-pain/back-pain-1.webp",
+        description:
+          "Targeted assessment and gentle spinal mobilization provide immediate relief from acute and chronic lower back pain. In-home physiotherapy identifies muscle spasms, postural strain, or disc irritation, delivering gentle manual techniques and safe movement patterns directly in your comfort zone."
+      },
+      {
+        image: "/conditions/back-pain/back-pain-2.webp",
+        description:
+          "Core stabilization and spinal muscular reconditioning build a protective natural brace around your spine. Customized exercises activate deep abdominal and lumbar stabilizer muscles, helping reduce mechanical stress on your lower back during standing and lifting."
+      },
+      {
+        image: "/conditions/back-pain/back-pain-3.webp",
+        description:
+          "Targeted flexibility routines and neural mobilization address sciatica, tight hip flexors, and hamstring stiffness. Restoring healthy pelvis and lumbar mobility takes pressure off irritated spinal nerves, enabling smooth, pain-free daily bending and walking."
+      },
+      {
+        image: "/conditions/back-pain/back-pain-4.webp",
+        description:
+          "Progressive functional rehabilitation and ergonomic posture training ensure long-lasting recovery. Learn safe lifting techniques, workstation adjustments, and personalized maintenance exercises designed to keep your back strong and prevent recurring flare-ups."
+      }
+    ]
   },
   "frozen-shoulder": {
     headingSuffix: "Frozen Shoulder",
@@ -199,12 +213,12 @@ const Header = memo(({ onNavigate, onSectionClick }) => {
 });
 Header.displayName = "Header";
 
-// 2. Memoized Hero Section (with "YOUR RECOVERY, OUR MISSION" completely removed)
+// 2. Hero Section with WHITE phone icon inside Green Call Button
 const Hero = memo(() => {
   return (
     <section className="hero fade-in" aria-label="Introduction">
       <div>
-        <h1><span>Physiotherapy At Home</span> In Hyderabad 📍</h1>
+        <h1><span>Physiotherapy At Home</span> In Hyderabad</h1>
         <p>Get personalized physiotherapy at your doorstep for pain management, post-surgery rehabilitation, neurological conditions and mobility recovery.</p>
         <div className="hero-cta-container">
           <a
@@ -212,7 +226,7 @@ const Hero = memo(() => {
             href="tel:+919014063048"
             aria-label="Call Now - Book Home Visit"
           >
-            📞 Call Now - Book Home Visit
+            <FaPhoneAlt className="btn-call-icon" aria-hidden="true" /> Call Now - Book Home Visit
           </a>
         </div>
       </div>
@@ -233,7 +247,109 @@ const Hero = memo(() => {
 });
 Hero.displayName = "Hero";
 
-// 3. Condition Detail Page Component
+// 3. Back Pain 4-Image Slider Component
+const BackPainSlider = memo(({ condition }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const slides = condition.slides;
+  const timerRef = useRef(null);
+
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % slides.length);
+    }, 4500);
+  }, [slides.length]);
+
+  useEffect(() => {
+    startTimer();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [startTimer]);
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    startTimer();
+  }, [slides.length, startTimer]);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
+    startTimer();
+  }, [slides.length, startTimer]);
+
+  const currentSlide = slides[currentIndex];
+
+  return (
+    <div className="slider-container">
+      <button
+        type="button"
+        className="slider-arrow slider-arrow-left"
+        onClick={handlePrev}
+        aria-label="Previous Slide"
+      >
+        <FaChevronLeft />
+      </button>
+
+      <div className="condition-content slider-card">
+        <div className="condition-image-wrap">
+          <img
+            key={currentSlide.image}
+            src={currentSlide.image}
+            alt={`Physiotherapy At Home for Back Pain - Step ${currentIndex + 1}`}
+            className="condition-img"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
+        <div className="condition-details">
+          <p>{currentSlide.description}</p>
+          <div className="condition-cta">
+            <a
+              className="btn btn-call"
+              href="tel:+919014063048"
+              aria-label="Call Now - Book Home Visit"
+            >
+              <FaPhoneAlt className="btn-call-icon" aria-hidden="true" /> Call Now - Book Home Visit
+            </a>
+          </div>
+
+          <div className="slider-pagination">
+            <span className="slider-counter">
+              {currentIndex + 1} / {slides.length}
+            </span>
+            <div className="slider-dots">
+              {slides.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`slider-dot ${idx === currentIndex ? "active" : ""}`}
+                  onClick={() => {
+                    setCurrentIndex(idx);
+                    startTimer();
+                  }}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        className="slider-arrow slider-arrow-right"
+        onClick={handleNext}
+        aria-label="Next Slide"
+      >
+        <FaChevronRight />
+      </button>
+    </div>
+  );
+});
+BackPainSlider.displayName = "BackPainSlider";
+
+// 4. Condition Detail Page Component (Routes to Slider for Back Pain, Standard View for Others)
 const ConditionPage = memo(({ conditionKey }) => {
   const condition = conditionsData[conditionKey];
 
@@ -251,36 +367,40 @@ const ConditionPage = memo(({ conditionKey }) => {
         <span>Physiotherapy At Home</span> for {condition.headingSuffix}
       </h1>
 
-      <div className="condition-content">
-        <div className="condition-image-wrap">
-          <img
-            src={condition.image}
-            alt={`Physiotherapy At Home for ${condition.headingSuffix}`}
-            className="condition-img"
-            loading="eager"
-            decoding="async"
-          />
-        </div>
+      {condition.slides ? (
+        <BackPainSlider condition={condition} />
+      ) : (
+        <div className="condition-content">
+          <div className="condition-image-wrap">
+            <img
+              src={condition.image}
+              alt={`Physiotherapy At Home for ${condition.headingSuffix}`}
+              className="condition-img"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
 
-        <div className="condition-details">
-          <p>{condition.description}</p>
-          <div className="condition-cta">
-            <a
-              className="btn btn-call"
-              href="tel:+919014063048"
-              aria-label="Call Now - Book Home Visit"
-            >
-              📞 Call Now - Book Home Visit
-            </a>
+          <div className="condition-details">
+            <p>{condition.description}</p>
+            <div className="condition-cta">
+              <a
+                className="btn btn-call"
+                href="tel:+919014063048"
+                aria-label="Call Now - Book Home Visit"
+              >
+                <FaPhoneAlt className="btn-call-icon" aria-hidden="true" /> Call Now - Book Home Visit
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 });
 ConditionPage.displayName = "ConditionPage";
 
-// 4. Services Section
+// 5. Services Section
 const Services = memo(({ triggerRef }) => {
   return (
     <section id="services" ref={triggerRef} className="services-section" aria-labelledby="services-heading">
@@ -313,7 +433,7 @@ const Services = memo(({ triggerRef }) => {
 });
 Services.displayName = "Services";
 
-// 5. WhyChooseUs Section
+// 6. WhyChooseUs Section
 const WhyChooseUs = memo(() => {
   const points = [
     { t: "Home Visit", d: "Experience hospital-grade care without leaving your home.", i: "🏠" },
@@ -343,7 +463,7 @@ const WhyChooseUs = memo(() => {
 });
 WhyChooseUs.displayName = "WhyChooseUs";
 
-// 6. Contact Form Component
+// 7. Contact Form Component
 const ContactForm = memo(() => {
   const [formData, setFormData] = useState({ name: "", phone: "", problem: "" });
 
@@ -405,7 +525,7 @@ const ContactForm = memo(() => {
 });
 ContactForm.displayName = "ContactForm";
 
-// 7. Contact Section
+// 8. Contact Section
 const ContactSection = memo(() => {
   return (
     <section id="contact" className="contact-section" aria-labelledby="contact-section-heading">
@@ -450,7 +570,7 @@ const ContactSection = memo(() => {
 });
 ContactSection.displayName = "ContactSection";
 
-// 8. Coverage Areas Section
+// 9. Coverage Areas Section
 const CoverageAreas = memo(() => {
   const areas = ["Banjara Hills", "Jubilee Hills", "Gachibowli", "Kondapur", "Mehdipatnam", "Tolichowki", "Hitech City", "Attapur", "Aaramgarh", "Dilsukhnagar", "Chandrayangutta"];
   return (
@@ -472,7 +592,7 @@ const CoverageAreas = memo(() => {
 });
 CoverageAreas.displayName = "CoverageAreas";
 
-// 9. Benefits Section
+// 10. Benefits Section
 const Benefits = memo(() => {
   const benefitsData = [
     { icon: "💪", title: "Pain Relief", text: "Reduce chronic and acute pain naturally without depending only on medications." },
@@ -502,7 +622,7 @@ const Benefits = memo(() => {
 });
 Benefits.displayName = "Benefits";
 
-// 10. About Expert Section
+// 11. About Expert Section
 const AboutExpert = memo(() => {
   return (
     <section id="about" className="about-section" aria-labelledby="about-heading">
@@ -532,7 +652,7 @@ const AboutExpert = memo(() => {
 });
 AboutExpert.displayName = "AboutExpert";
 
-// 11. Testimonials Section
+// 12. Testimonials Section
 const Testimonials = memo(() => {
   const reviews = [
     { n: "Rahul K.", m: "Excellent treatment for my chronic back pain. Dr. Adil is very professional and patient." },
@@ -559,7 +679,7 @@ const Testimonials = memo(() => {
 });
 Testimonials.displayName = "Testimonials";
 
-// 12. FAQ Section
+// 13. FAQ Section
 const FAQSection = memo(() => {
   const [activeFaq, setActiveFaq] = useState(null);
   
@@ -616,7 +736,7 @@ const FAQSection = memo(() => {
 });
 FAQSection.displayName = "FAQSection";
 
-// 13. Footer Component
+// 14. Footer Component
 const Footer = memo(() => {
   return (
     <footer>
