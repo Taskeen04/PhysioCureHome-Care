@@ -54,17 +54,17 @@ const conditionsNavItems = [
   { name: "Frozen shoulder", slug: "frozen-shoulder" }
 ];
 
-// Condition page data with exact headings, local images, and professional descriptions
+// Condition page data with exact headings, verified local image paths, and professional descriptions
 const conditionsData = {
   "total-knee-replacement": {
     headingSuffix: "Total Knee Replacement",
-    image: "/conditions/total-knee-replacement.webp",
+    image: "/conditions/total_knee_replacement.webp",
     description:
       "Recovering from a total knee replacement requires structured, progressive rehabilitation to restore joint mobility, rebuild quadriceps strength, and re-establish safe walking patterns. Home physiotherapy allows patients to receive expert post-surgical care in the comfort and safety of their home during the critical early recovery phases. Personalized treatment focuses on swelling management, pain reduction, gentle range-of-motion exercises, and gradual functional retraining to help you safely regain independence in daily activities."
   },
   "stroke": {
     headingSuffix: "Stroke",
-    image: "/conditions/stroke.webp",
+    image: "/conditions/Stroke.webp",
     description:
       "Stroke recovery requires dedicated neurological rehabilitation to encourage neuroplasticity, improve motor control, and regain functional independence. In-home physiotherapy provides a familiar, supportive environment where therapy can directly target everyday movements. Rehabilitation focuses on bed mobility, sitting and standing balance, gait re-education, muscle tone management, and targeted strength training designed to help individuals regain confidence and functional mobility at a safe, steady pace."
   },
@@ -95,7 +95,7 @@ const conditionsData = {
   },
   "frozen-shoulder": {
     headingSuffix: "Frozen Shoulder",
-    image: "/conditions/frozen-shoulder.webp",
+    image: "/conditions/frozen_shoulder.webp",
     description:
       "Frozen shoulder (adhesive capsulitis) causes progressive stiffness, persistent discomfort, and severe restrictions in arm movement. Home physiotherapy provides guided, stage-appropriate therapeutic exercises to gently restore glenohumeral joint mobility and alleviate muscular tension. Sessions focus on gentle stretching, scapular stabilization, passive and active-assisted range of motion, and posture correction to gradually improve shoulder function and ease daily tasks."
   }
