@@ -14,6 +14,41 @@ import {
   FaChevronRight
 } from "react-icons/fa";
 
+// Helper function to reliably convert any YouTube Shorts URL, standard URL, or ID into an embed URL
+function getYouTubeEmbedUrl(urlOrId) {
+  if (!urlOrId) return "";
+  if (urlOrId.includes("youtube.com/embed/")) return urlOrId;
+  const shortsMatch = urlOrId.match(/\/shorts\/([a-zA-Z0-9_-]+)/);
+  if (shortsMatch) return `https://www.youtube.com/embed/${shortsMatch[1]}`;
+  const watchMatch = urlOrId.match(/[?&]v=([a-zA-Z0-9_-]+)/);
+  if (watchMatch) return `https://www.youtube.com/embed/${watchMatch[1]}`;
+  const shareMatch = urlOrId.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+  if (shareMatch) return `https://www.youtube.com/embed/${shareMatch[1]}`;
+  return `https://www.youtube.com/embed/${urlOrId}`;
+}
+
+// YouTube Shorts Patient Review Videos (paste your specific video IDs or Shorts URLs here)
+const PATIENT_VIDEOS = {
+  stroke: {
+    title: "Patient Review after Stroke (Paralysis)",
+    url: "https://youtube.com/shorts/30SdeV9ISlI?si=tF9CH9cAlZXHN2v5"
+  },
+  tkr: {
+    title: "Patient Review after Total knee Replacement",
+    url: "https://youtube.com/shorts/4yCh5Cg0fJ4?si=JmEyk2-mR3agsjmg"
+  },
+  mcl: {
+    title: "Patient Review after MCL Ligament Injury",
+    url: "https://youtube.com/shorts/6QAPZCMqht8?si=4C3oYgtvECcxhSf5"
+  }
+};
+
+const carouselVideos = [
+  PATIENT_VIDEOS.stroke,
+  PATIENT_VIDEOS.tkr,
+  PATIENT_VIDEOS.mcl
+];
+
 // Static data for services
 const services = [
   { 
@@ -46,7 +81,7 @@ const faqs = [
   { q: "What conditions do you treat?", a: "I treat various conditions including back pain, neck pain, sports injuries, stroke rehab, post-surgery recovery, and neurological disorders." }
 ];
 
-// Dropdown condition navigation items (Ligament injury completely removed)
+// Dropdown condition navigation items
 const conditionsNavItems = [
   { name: "Total knee replacement", slug: "total-knee-replacement" },
   { name: "Stroke", slug: "stroke" },
@@ -117,7 +152,7 @@ const conditionsData = {
   }
 };
 
-// 1. Header Component with robust CLICK-based Conditions Dropdown
+// 1. Header Component with CLICK-based Conditions Dropdown
 const Header = memo(({ onNavigate, onSectionClick }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [conditionsOpen, setConditionsOpen] = useState(false);
@@ -129,7 +164,6 @@ const Header = memo(({ onNavigate, onSectionClick }) => {
     setConditionsOpen(false);
   }, []);
 
-  // Dropdown stays open once clicked; closes ONLY when clicked outside or on a link
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -187,7 +221,6 @@ const Header = memo(({ onNavigate, onSectionClick }) => {
             Book My Appointment
           </a>
           
-          {/* Conditions Clickable Dropdown */}
           <div className="nav-dropdown-wrapper" ref={dropdownRef}>
             <button
               type="button"
@@ -263,7 +296,110 @@ const Hero = memo(() => {
 });
 Hero.displayName = "Hero";
 
-// 3. Back Pain 4-Image Slider Component
+// 3. Services Section
+const Services = memo(({ triggerRef }) => {
+  return (
+    <section id="services" ref={triggerRef} className="services-section" aria-labelledby="services-heading">
+      <div className="section-title">
+        <p>What I Offer</p>
+        <h2 id="services-heading">Our Specialized Home Physiotherapy Services in Hyderabad</h2>
+      </div>
+      <div className="services-grid">
+        {services.map((s, idx) => (
+          <article className="card fade-in" key={idx} aria-labelledby={`service-title-${idx}`}>
+            <img
+              src={s.img}
+              alt={`${s.title} Home Physiotherapy Service in Hyderabad`}
+              width="350"
+              height="250"
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="card-content">
+              <h3 id={`service-title-${idx}`}>{s.title}</h3>
+              <p style={{ fontSize: '0.85rem', color: '#334155' }}>
+                {s.description}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+});
+Services.displayName = "Services";
+
+// 4. Patient Success Stories — YouTube Shorts Video Carousel (Positioned Directly After Services)
+const PatientSuccessVideos = memo(() => {
+  const [videoIndex, setVideoIndex] = useState(0);
+
+  const handlePrev = () => {
+    setVideoIndex((prev) => (prev - 1 + carouselVideos.length) % carouselVideos.length);
+  };
+
+  const handleNext = () => {
+    setVideoIndex((prev) => (prev + 1) % carouselVideos.length);
+  };
+
+  const currentVideo = carouselVideos[videoIndex];
+
+  return (
+    <section id="testimonials" className="video-carousel-section" aria-labelledby="testimonials-heading">
+      <div className="section-title">
+        <p>Real Patient Results</p>
+        <h2 id="testimonials-heading">Patient Success Stories</h2>
+      </div>
+
+      <div className="video-carousel-wrapper">
+        <button
+          type="button"
+          className="slider-arrow video-arrow"
+          onClick={handlePrev}
+          aria-label="Previous Patient Video"
+        >
+          <FaChevronLeft />
+        </button>
+
+        <div className="video-card-container">
+          <p className="video-title-badge">{currentVideo.title}</p>
+          <div className="video-frame-wrap">
+            <iframe
+              key={currentVideo.title}
+              src={getYouTubeEmbedUrl(currentVideo.url)}
+              title={currentVideo.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+
+          <div className="video-carousel-dots">
+            {carouselVideos.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                className={`video-dot ${idx === videoIndex ? "active" : ""}`}
+                onClick={() => setVideoIndex(idx)}
+                aria-label={`Go to video ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          className="slider-arrow video-arrow"
+          onClick={handleNext}
+          aria-label="Next Patient Video"
+        >
+          <FaChevronRight />
+        </button>
+      </div>
+    </section>
+  );
+});
+PatientSuccessVideos.displayName = "PatientSuccessVideos";
+
+// 5. Back Pain 4-Image Slider Component
 const BackPainSlider = memo(({ condition }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slides = condition.slides;
@@ -365,7 +501,7 @@ const BackPainSlider = memo(({ condition }) => {
 });
 BackPainSlider.displayName = "BackPainSlider";
 
-// 4. Condition Detail Page Component (with Total Knee Replacement 3-Step Journey)
+// 6. Condition Detail Page Component (with Embedded Video for TKR and Stroke)
 const ConditionPage = memo(({ conditionKey }) => {
   const condition = conditionsData[conditionKey];
 
@@ -412,6 +548,40 @@ const ConditionPage = memo(({ conditionKey }) => {
             </div>
           </div>
 
+          {/* Embedded Video for Total Knee Replacement Page */}
+          {conditionKey === "total-knee-replacement" && (
+            <div className="condition-video-section">
+              <h2 className="condition-video-heading">Patient Recovery Story</h2>
+              <div className="condition-video-card">
+                <div className="video-frame-wrap">
+                  <iframe
+                    src={getYouTubeEmbedUrl(PATIENT_VIDEOS.tkr.url)}
+                    title="Patient Review after Total knee Replacement"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Embedded Video for Stroke Page */}
+          {conditionKey === "stroke" && (
+            <div className="condition-video-section">
+              <h2 className="condition-video-heading">Patient Recovery Story</h2>
+              <div className="condition-video-card">
+                <div className="video-frame-wrap">
+                  <iframe
+                    src={getYouTubeEmbedUrl(PATIENT_VIDEOS.stroke.url)}
+                    title="Patient Review after Stroke (Paralysis)"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Exclusive 3-Step Recovery Journey for Total Knee Replacement */}
           {conditionKey === "total-knee-replacement" && (
             <div className="tkr-journey-section">
@@ -435,40 +605,7 @@ const ConditionPage = memo(({ conditionKey }) => {
 });
 ConditionPage.displayName = "ConditionPage";
 
-// 5. Services Section
-const Services = memo(({ triggerRef }) => {
-  return (
-    <section id="services" ref={triggerRef} className="services-section" aria-labelledby="services-heading">
-      <div className="section-title">
-        <p>What I Offer</p>
-        <h2 id="services-heading">Our Specialized Home Physiotherapy Services in Hyderabad</h2>
-      </div>
-      <div className="services-grid">
-        {services.map((s, idx) => (
-          <article className="card fade-in" key={idx} aria-labelledby={`service-title-${idx}`}>
-            <img
-              src={s.img}
-              alt={`${s.title} Home Physiotherapy Service in Hyderabad`}
-              width="350"
-              height="250"
-              loading="lazy"
-              decoding="async"
-            />
-            <div className="card-content">
-              <h3 id={`service-title-${idx}`}>{s.title}</h3>
-              <p style={{ fontSize: '0.85rem', color: '#334155' }}>
-                {s.description}
-              </p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-});
-Services.displayName = "Services";
-
-// 6. WhyChooseUs Section
+// 7. WhyChooseUs Section
 const WhyChooseUs = memo(() => {
   const points = [
     { t: "Home Visit", d: "Experience hospital-grade care without leaving your home.", i: "🏠" },
@@ -498,7 +635,7 @@ const WhyChooseUs = memo(() => {
 });
 WhyChooseUs.displayName = "WhyChooseUs";
 
-// 7. Contact Form Component
+// 8. Contact Form Component
 const ContactForm = memo(() => {
   const [formData, setFormData] = useState({ name: "", phone: "", problem: "" });
 
@@ -560,7 +697,7 @@ const ContactForm = memo(() => {
 });
 ContactForm.displayName = "ContactForm";
 
-// 8. Contact Section
+// 9. Contact Section
 const ContactSection = memo(() => {
   return (
     <section id="contact" className="contact-section" aria-labelledby="contact-section-heading">
@@ -605,7 +742,7 @@ const ContactSection = memo(() => {
 });
 ContactSection.displayName = "ContactSection";
 
-// 9. Coverage Areas Section
+// 10. Coverage Areas Section
 const CoverageAreas = memo(() => {
   const areas = ["Banjara Hills", "Jubilee Hills", "Gachibowli", "Kondapur", "Mehdipatnam", "Tolichowki", "Hitech City", "Attapur", "Aaramgarh", "Dilsukhnagar", "Chandrayangutta"];
   return (
@@ -626,36 +763,6 @@ const CoverageAreas = memo(() => {
   );
 });
 CoverageAreas.displayName = "CoverageAreas";
-
-// 10. Benefits Section
-const Benefits = memo(() => {
-  const benefitsData = [
-    { icon: "💪", title: "Pain Relief", text: "Reduce chronic and acute pain naturally without depending only on medications." },
-    { icon: "🏃", title: "Improved Mobility", text: "Restore flexibility, balance and movement for daily activities." },
-    { icon: "⚡", title: "Faster Recovery", text: "Recover safely after surgery, injury or stroke with personalized rehabilitation." },
-    { icon: "🦴", title: "Better Strength", text: "Strengthen muscles and joints to prevent future injuries." },
-    { icon: "❤️", title: "Improved Quality of Life", text: "Live a healthier, more active and pain-free lifestyle." },
-    { icon: "🛡️", title: "Prevent Future Problems", text: "Correct posture and movement patterns to avoid recurring pain." }
-  ];
-  return (
-    <section id="benefits" style={{ background: "var(--bg-light)" }} aria-labelledby="benefits-heading">
-      <div className="section-title">
-        <p>Health Benefits</p>
-        <h2 id="benefits-heading">Benefits of Physiotherapy</h2>
-      </div>
-      <div className="grid">
-        {benefitsData.map((item, index) => (
-          <article className="why-card" key={index} aria-labelledby={`benefit-title-${index}`}>
-            <span className="why-icon" role="img" aria-hidden="true">{item.icon}</span>
-            <h3 id={`benefit-title-${index}`} style={{ marginBottom: "10px" }}>{item.title}</h3>
-            <p style={{ color: "#334155", fontSize: "0.9rem" }}>{item.text}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-});
-Benefits.displayName = "Benefits";
 
 // 11. About Expert Section
 const AboutExpert = memo(() => {
@@ -687,34 +794,7 @@ const AboutExpert = memo(() => {
 });
 AboutExpert.displayName = "AboutExpert";
 
-// 12. Testimonials Section
-const Testimonials = memo(() => {
-  const reviews = [
-    { n: "Rahul K.", m: "Excellent treatment for my chronic back pain. Dr. Adil is very professional and patient." },
-    { n: "Ayesha S.", m: "My mother recovered quickly after her knee surgery thanks to his home visit sessions." },
-    { n: "Kiran Dev", m: "Very professional and caring approach. The convenience of home visits is unmatched." }
-  ];
-  return (
-    <section id="testimonials" aria-labelledby="testimonials-heading">
-      <div className="section-title">
-        <p>Reviews</p>
-        <h2 id="testimonials-heading">Patient Success Stories</h2>
-      </div>
-      <div className="grid">
-        {reviews.map((t, idx) => (
-          <article className="testimonial-card" key={idx} aria-labelledby={`testimonial-author-${idx}`}>
-            <div className="stars" aria-label="5 out of 5 stars">★★★★★</div>
-            <p className="testimonial-text">"{t.m}"</p>
-            <p id={`testimonial-author-${idx}`} className="testimonial-author">- {t.n}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-});
-Testimonials.displayName = "Testimonials";
-
-// 13. FAQ Section
+// 12. FAQ Section
 const FAQSection = memo(() => {
   const [activeFaq, setActiveFaq] = useState(null);
   
@@ -771,7 +851,7 @@ const FAQSection = memo(() => {
 });
 FAQSection.displayName = "FAQSection";
 
-// 14. Footer Component
+// 13. Footer Component
 const Footer = memo(() => {
   return (
     <footer>
@@ -799,7 +879,6 @@ export default function App() {
   const [lazyLoaded, setLazyLoaded] = useState(false);
   const triggerRef = useRef(null);
 
-  // Sync state with browser Back/Forward navigation
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname);
@@ -809,7 +888,6 @@ export default function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  // IntersectionObserver for below-the-fold content optimization
   useEffect(() => {
     if (
       typeof window === "undefined" ||
@@ -837,10 +915,8 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
-  // Preload primary hero asset
   preload(asli, { as: "image", fetchPriority: "high" });
 
-  // Navigation handlers
   const handleNavigate = useCallback((path) => {
     window.history.pushState({}, "", path);
     setCurrentPath(path);
@@ -865,13 +941,11 @@ export default function App() {
     }
   }, []);
 
-  // Determine active route
   const conditionMatch = currentPath.match(/^\/conditions\/([a-z0-9-]+)$/);
   const activeConditionSlug = conditionMatch ? conditionMatch[1] : null;
 
   return (
     <>
-      {/* Floating WhatsApp CTA with subtle gentle bounce animation */}
       <div className="call-wrapper">
         <span className="call-text">WhatsApp us</span>
         <a
@@ -885,28 +959,26 @@ export default function App() {
         </a>
       </div>
 
-      {/* Semantic Header & Navigation */}
       <Header onNavigate={handleNavigate} onSectionClick={handleSectionClick} />
 
-      {/* Semantic Main Content Wrap */}
       <main id="main-content">
         {activeConditionSlug ? (
-          /* Condition Page Route */
           <ConditionPage conditionKey={activeConditionSlug} />
         ) : (
-          /* Homepage Route */
           <>
             <Hero />
             <Services triggerRef={triggerRef} />
+            
+            {/* Patient Success Stories Video Carousel DIRECTLY AFTER Services */}
+            <PatientSuccessVideos />
+
             <WhyChooseUs />
             <ContactSection />
             <CoverageAreas />
 
             {lazyLoaded ? (
               <>
-                <Benefits />
                 <AboutExpert />
-                <Testimonials />
                 <FAQSection />
               </>
             ) : (
