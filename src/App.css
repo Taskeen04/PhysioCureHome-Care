@@ -443,6 +443,87 @@ section {
   margin: 0;
 }
 
+/* Specialized Services Carousel */
+.services-section { 
+  margin-top: 0;
+  padding-top: 5px;
+  background: linear-gradient(135deg, #DFF7EC, #EAF4FF); 
+}
+
+.services-carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  max-width: 580px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.service-carousel-card-wrap {
+  flex: 1;
+  max-width: 400px;
+  width: 100%;
+}
+
+.service-carousel-card-wrap .card {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.service-arrow {
+  background: #ffffff;
+  border: 1.5px solid #D6E9FF;
+  color: var(--primary);
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+  flex-shrink: 0;
+  position: static !important;
+  transform: none !important;
+  z-index: 5;
+}
+
+.service-arrow:hover {
+  background: var(--primary);
+  color: #ffffff;
+  transform: scale(1.08) !important;
+  border-color: var(--primary);
+}
+
+.services-carousel-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.service-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #CBD5E1;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: var(--transition);
+}
+
+.service-dot.active {
+  background: var(--primary);
+  width: 24px;
+  border-radius: 10px;
+}
+
 /* Patient Success Stories Video Carousel Section */
 .video-carousel-section {
   background: var(--bg-light);
@@ -457,10 +538,35 @@ section {
   gap: 25px;
   max-width: 650px;
   margin: 0 auto;
+  position: relative;
 }
 
 .video-arrow {
+  background: #ffffff;
+  border: 1.5px solid #D6E9FF;
+  color: var(--primary);
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
   flex-shrink: 0;
+  position: static !important;
+  transform: none !important;
+  z-index: 5;
+}
+
+.video-arrow:hover {
+  background: var(--primary);
+  color: #ffffff;
+  transform: scale(1.08) !important;
+  border-color: var(--primary);
 }
 
 .video-card-container {
@@ -628,25 +734,6 @@ section {
   margin-bottom: 10px; 
 }
 
-/* Services section grids */
-.services-section { 
-  margin-top: 0;
-  padding-top: 5px;
-  background: linear-gradient(135deg, #DFF7EC, #EAF4FF); 
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-}
-
-.grid { 
-  display: grid; 
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 30px; 
-}
-
 .card { 
   background: #fff; 
   border-radius: 20px; 
@@ -677,6 +764,12 @@ section {
   font-size: 1.2rem; 
   margin-bottom: 10px; 
   color: var(--text-dark); 
+}
+
+.grid { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 30px; 
 }
 
 /* Why choose us */
@@ -743,6 +836,33 @@ section {
   background: var(--primary); 
   color: #fff; 
   transform: scale(1.05); 
+}
+
+/* Testimonial configurations */
+.testimonial-card { 
+  background: #fff; 
+  padding: 40px; 
+  border-radius: 24px; 
+  box-shadow: var(--shadow); 
+  position: relative; 
+  width: 100%; 
+}
+
+.stars { 
+  color: #ffc107; 
+  margin-bottom: 15px; 
+  font-size: 1.2rem; 
+}
+
+.testimonial-text { 
+  font-style: italic; 
+  color: var(--text-gray); 
+  margin-bottom: 20px; 
+}
+
+.testimonial-author { 
+  font-weight: 700; 
+  color: var(--text-dark); 
 }
 
 /* FAQ setups */
@@ -1080,19 +1200,26 @@ footer {
     color: var(--text-dark); 
     margin: 12px 25px; 
     font-size: 1rem;
+    text-align: center;
   }
 
+  /* Centering Conditions in Mobile Menu */
   .nav-dropdown-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav-dropdown-btn {
     color: var(--text-dark);
-    margin: 12px 25px;
+    margin: 12px 0;
     font-size: 1rem;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .conditions-dropdown {
@@ -1104,20 +1231,17 @@ footer {
     box-shadow: none;
     border: 1px solid #E2E8F0;
     background: #F8FAFC;
+    text-align: center;
   }
 
   .conditions-dropdown li {
     padding: 8px 14px;
     font-size: 0.9rem;
     white-space: normal;
+    text-align: center;
   }
   
   .grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .services-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
@@ -1201,12 +1325,13 @@ footer {
     padding: 24px 20px;
   }
 
+  /* Back Pain Slider responsiveness on tablet / mobile */
   .slider-container {
     position: relative;
     display: block;
   }
 
-  .slider-arrow {
+  .slider-container .slider-arrow {
     position: absolute;
     top: 140px;
     transform: translateY(-50%);
@@ -1217,16 +1342,35 @@ footer {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
   }
 
-  .slider-arrow-left {
+  .slider-container .slider-arrow-left {
     left: -6px;
   }
 
-  .slider-arrow-right {
+  .slider-container .slider-arrow-right {
     right: -6px;
   }
 
   .slider-pagination {
     justify-content: center;
+  }
+
+  /* Video Carousel on Tablet / Mobile */
+  .video-carousel-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .video-arrow {
+    position: static !important;
+    transform: none !important;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
   }
   
   section { 
@@ -1251,8 +1395,14 @@ footer {
 }
 
 @media(max-width: 768px) {
+  /* Video Carousel mobile layout */
   .video-carousel-wrapper {
-    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
   }
 
   .video-arrow {
@@ -1260,15 +1410,46 @@ footer {
     height: 40px;
     min-width: 40px;
     font-size: 1rem;
+    position: static !important;
+    transform: none !important;
+    flex-shrink: 0;
   }
 
   .video-card-container {
     padding: 16px 12px;
-    max-width: 300px;
+    max-width: 290px;
+    width: calc(100% - 104px);
+    flex-shrink: 1;
   }
 
   .video-frame-wrap {
-    max-width: 260px;
+    max-width: 250px;
+  }
+
+  /* Services Carousel mobile layout */
+  .services-carousel-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .service-arrow {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 1rem;
+    position: static !important;
+    transform: none !important;
+    flex-shrink: 0;
+  }
+
+  .service-carousel-card-wrap {
+    max-width: 280px;
+    width: calc(100% - 104px);
+    flex-shrink: 1;
   }
 }
 
@@ -1299,11 +1480,54 @@ footer {
     font-size: 1.5rem;
   }
 
-  .slider-arrow-left {
+  .slider-container .slider-arrow-left {
     left: 2px;
   }
 
-  .slider-arrow-right {
+  .slider-container .slider-arrow-right {
     right: 2px;
+  }
+
+  /* Compact spacing on small mobile screens */
+  .video-carousel-wrapper {
+    gap: 8px;
+  }
+
+  .video-arrow {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    font-size: 0.9rem;
+  }
+
+  .video-card-container {
+    padding: 12px 8px;
+    max-width: 240px;
+    width: calc(100% - 90px);
+  }
+
+  .video-frame-wrap {
+    max-width: 210px;
+  }
+
+  .video-title-badge {
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+  }
+
+  .services-carousel-wrapper {
+    gap: 8px;
+  }
+
+  .service-arrow {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    font-size: 0.9rem;
+  }
+
+  .service-carousel-card-wrap {
+    max-width: 250px;
+    width: calc(100% - 90px);
   }
 }

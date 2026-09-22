@@ -27,7 +27,7 @@ function getYouTubeEmbedUrl(urlOrId) {
   return `https://www.youtube.com/embed/${urlOrId}`;
 }
 
-// YouTube Shorts Patient Review Videos (paste your specific video IDs or Shorts URLs here)
+// YouTube Shorts Patient Review Videos
 const PATIENT_VIDEOS = {
   stroke: {
     title: "Patient Review after Stroke (Paralysis)",
@@ -296,50 +296,130 @@ const Hero = memo(() => {
 });
 Hero.displayName = "Hero";
 
-// 3. Services Section
+// 3. Specialized Services Section — Single Card Auto-Looping Carousel
 const Services = memo(({ triggerRef }) => {
+  const [serviceIndex, setServiceIndex] = useState(0);
+  const timerRef = useRef(null);
+
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setServiceIndex((prev) => (prev + 1) % services.length);
+    }, 4000);
+  }, []);
+
+  useEffect(() => {
+    startTimer();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [startTimer]);
+
+  const handlePrev = useCallback(() => {
+    setServiceIndex((prev) => (prev - 1 + services.length) % services.length);
+    startTimer();
+  }, [startTimer]);
+
+  const handleNext = useCallback(() => {
+    setServiceIndex((prev) => (prev + 1) % services.length);
+    startTimer();
+  }, [startTimer]);
+
+  const currentService = services[serviceIndex];
+
   return (
     <section id="services" ref={triggerRef} className="services-section" aria-labelledby="services-heading">
       <div className="section-title">
         <p>What I Offer</p>
         <h2 id="services-heading">Our Specialized Home Physiotherapy Services in Hyderabad</h2>
       </div>
-      <div className="services-grid">
-        {services.map((s, idx) => (
-          <article className="card fade-in" key={idx} aria-labelledby={`service-title-${idx}`}>
+
+      <div className="services-carousel-wrapper">
+        <button
+          type="button"
+          className="service-arrow service-arrow-left"
+          onClick={handlePrev}
+          aria-label="Previous Service"
+        >
+          <FaChevronLeft />
+        </button>
+
+        <div className="service-carousel-card-wrap">
+          <article className="card fade-in" key={serviceIndex} aria-labelledby={`service-title-${serviceIndex}`}>
             <img
-              src={s.img}
-              alt={`${s.title} Home Physiotherapy Service in Hyderabad`}
+              src={currentService.img}
+              alt={`${currentService.title} Home Physiotherapy Service in Hyderabad`}
               width="350"
               height="250"
               loading="lazy"
               decoding="async"
             />
             <div className="card-content">
-              <h3 id={`service-title-${idx}`}>{s.title}</h3>
+              <h3 id={`service-title-${serviceIndex}`}>{currentService.title}</h3>
               <p style={{ fontSize: '0.85rem', color: '#334155' }}>
-                {s.description}
+                {currentService.description}
               </p>
             </div>
           </article>
-        ))}
+
+          <div className="services-carousel-dots">
+            {services.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                className={`service-dot ${idx === serviceIndex ? "active" : ""}`}
+                onClick={() => {
+                  setServiceIndex(idx);
+                  startTimer();
+                }}
+                aria-label={`Go to service ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          className="service-arrow service-arrow-right"
+          onClick={handleNext}
+          aria-label="Next Service"
+        >
+          <FaChevronRight />
+        </button>
       </div>
     </section>
   );
 });
 Services.displayName = "Services";
 
-// 4. Patient Success Stories — YouTube Shorts Video Carousel (Positioned Directly After Services)
+// 4. Patient Success Stories — YouTube Shorts Video Carousel with Auto-Slide & Correct Mobile Layout
 const PatientSuccessVideos = memo(() => {
   const [videoIndex, setVideoIndex] = useState(0);
+  const timerRef = useRef(null);
 
-  const handlePrev = () => {
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setVideoIndex((prev) => (prev + 1) % carouselVideos.length);
+    }, 4000);
+  }, []);
+
+  useEffect(() => {
+    startTimer();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [startTimer]);
+
+  const handlePrev = useCallback(() => {
     setVideoIndex((prev) => (prev - 1 + carouselVideos.length) % carouselVideos.length);
-  };
+    startTimer();
+  }, [startTimer]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setVideoIndex((prev) => (prev + 1) % carouselVideos.length);
-  };
+    startTimer();
+  }, [startTimer]);
 
   const currentVideo = carouselVideos[videoIndex];
 
@@ -353,7 +433,7 @@ const PatientSuccessVideos = memo(() => {
       <div className="video-carousel-wrapper">
         <button
           type="button"
-          className="slider-arrow video-arrow"
+          className="video-arrow video-arrow-left"
           onClick={handlePrev}
           aria-label="Previous Patient Video"
         >
@@ -378,7 +458,10 @@ const PatientSuccessVideos = memo(() => {
                 key={idx}
                 type="button"
                 className={`video-dot ${idx === videoIndex ? "active" : ""}`}
-                onClick={() => setVideoIndex(idx)}
+                onClick={() => {
+                  setVideoIndex(idx);
+                  startTimer();
+                }}
                 aria-label={`Go to video ${idx + 1}`}
               />
             ))}
@@ -387,7 +470,7 @@ const PatientSuccessVideos = memo(() => {
 
         <button
           type="button"
-          className="slider-arrow video-arrow"
+          className="video-arrow video-arrow-right"
           onClick={handleNext}
           aria-label="Next Patient Video"
         >
@@ -501,7 +584,7 @@ const BackPainSlider = memo(({ condition }) => {
 });
 BackPainSlider.displayName = "BackPainSlider";
 
-// 6. Condition Detail Page Component (with Embedded Video for TKR and Stroke)
+// 6. Condition Detail Page Component
 const ConditionPage = memo(({ conditionKey }) => {
   const condition = conditionsData[conditionKey];
 
