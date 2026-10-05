@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, memo, useCallback } from "react";
-import { preload } from "react-dom";
 import "./App.css";
 import asli from "./assets/asli.webp";
 import {
@@ -196,8 +195,8 @@ const Header = memo(({ onNavigate, onSectionClick }) => {
           <img
             src="/logo.webp"
             alt="PhysioCure Home Care Logo"
-            width="60"
-            height="60"
+            width="42"
+            height="42"
             decoding="async"
           />
           <span>PhysioCure Home Care</span>
@@ -262,7 +261,7 @@ const Header = memo(({ onNavigate, onSectionClick }) => {
 });
 Header.displayName = "Header";
 
-// 2. Hero Section with WHITE phone icon inside Green Call Button
+// 2. Hero Section with eager LCP image optimization
 const Hero = memo(() => {
   return (
     <section className="hero fade-in" aria-label="Introduction">
@@ -350,7 +349,7 @@ const Services = memo(({ triggerRef }) => {
               src={currentService.img}
               alt={`${currentService.title} Home Physiotherapy Service in Hyderabad`}
               width="350"
-              height="250"
+              height="200"
               loading="lazy"
               decoding="async"
             />
@@ -392,10 +391,36 @@ const Services = memo(({ triggerRef }) => {
 });
 Services.displayName = "Services";
 
-// 4. Patient Success Stories — YouTube Shorts Video Carousel with Auto-Slide & Correct Mobile Layout
+// 4. Patient Success Stories — Defer YouTube iframes using IntersectionObserver
 const PatientSuccessVideos = memo(() => {
   const [videoIndex, setVideoIndex] = useState(0);
+  const [isNearViewport, setIsNearViewport] = useState(false);
+  const sectionRef = useRef(null);
   const timerRef = useRef(null);
+
+  // Defer YouTube iframe download until section approaches viewport
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setIsNearViewport(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const startTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -405,11 +430,13 @@ const PatientSuccessVideos = memo(() => {
   }, []);
 
   useEffect(() => {
-    startTimer();
+    if (isNearViewport) {
+      startTimer();
+    }
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [startTimer]);
+  }, [isNearViewport, startTimer]);
 
   const handlePrev = useCallback(() => {
     setVideoIndex((prev) => (prev - 1 + carouselVideos.length) % carouselVideos.length);
@@ -424,7 +451,12 @@ const PatientSuccessVideos = memo(() => {
   const currentVideo = carouselVideos[videoIndex];
 
   return (
-    <section id="testimonials" className="video-carousel-section" aria-labelledby="testimonials-heading">
+    <section 
+      id="testimonials" 
+      ref={sectionRef}
+      className="video-carousel-section" 
+      aria-labelledby="testimonials-heading"
+    >
       <div className="section-title">
         <p>Real Patient Results</p>
         <h2 id="testimonials-heading">Patient Success Stories</h2>
@@ -443,13 +475,24 @@ const PatientSuccessVideos = memo(() => {
         <div className="video-card-container">
           <p className="video-title-badge">{currentVideo.title}</p>
           <div className="video-frame-wrap">
-            <iframe
-              key={currentVideo.title}
-              src={getYouTubeEmbedUrl(currentVideo.url)}
-              title={currentVideo.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            {isNearViewport ? (
+              <iframe
+                key={currentVideo.url}
+                src={getYouTubeEmbedUrl(currentVideo.url)}
+                title={currentVideo.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <div 
+                className="video-placeholder" 
+                aria-label={`Video Preview: ${currentVideo.title}`}
+              >
+                <div className="video-placeholder-play" aria-hidden="true">▶</div>
+                <span className="video-placeholder-text">Loading video...</span>
+              </div>
+            )}
           </div>
 
           <div className="video-carousel-dots">
@@ -482,7 +525,56 @@ const PatientSuccessVideos = memo(() => {
 });
 PatientSuccessVideos.displayName = "PatientSuccessVideos";
 
-// 5. Back Pain 4-Image Slider Component
+// 5. Reusable Deferred YouTube Embed Component for Condition Pages
+const LazyVideoEmbed = memo(({ videoUrl, title }) => {
+  const [isNear, setIsNear] = useState(false);
+  const frameRef = useRef(null);
+
+  useEffect(() => {
+    const el = frameRef.current;
+    if (!el) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setIsNear(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="video-frame-wrap" ref={frameRef}>
+      {isNear ? (
+        <iframe
+          src={getYouTubeEmbedUrl(videoUrl)}
+          title={title}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      ) : (
+        <div className="video-placeholder" aria-label={`Video Preview: ${title}`}>
+          <div className="video-placeholder-play" aria-hidden="true">▶</div>
+          <span className="video-placeholder-text">Loading video...</span>
+        </div>
+      )}
+    </div>
+  );
+});
+LazyVideoEmbed.displayName = "LazyVideoEmbed";
+
+// 6. Back Pain 4-Image Slider Component
 const BackPainSlider = memo(({ condition }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slides = condition.slides;
@@ -532,7 +624,9 @@ const BackPainSlider = memo(({ condition }) => {
             src={currentSlide.image}
             alt={`Physiotherapy At Home for Back Pain - Step ${currentIndex + 1}`}
             className="condition-img"
-            loading="eager"
+            width="480"
+            height="340"
+            loading="lazy"
             decoding="async"
           />
         </div>
@@ -584,7 +678,7 @@ const BackPainSlider = memo(({ condition }) => {
 });
 BackPainSlider.displayName = "BackPainSlider";
 
-// 6. Condition Detail Page Component
+// 7. Condition Detail Page Component
 const ConditionPage = memo(({ conditionKey }) => {
   const condition = conditionsData[conditionKey];
 
@@ -612,7 +706,9 @@ const ConditionPage = memo(({ conditionKey }) => {
                 src={condition.image}
                 alt={`Physiotherapy At Home for ${condition.headingSuffix}`}
                 className="condition-img"
-                loading="eager"
+                width="480"
+                height="340"
+                loading="lazy"
                 decoding="async"
               />
             </div>
@@ -631,41 +727,30 @@ const ConditionPage = memo(({ conditionKey }) => {
             </div>
           </div>
 
-          {/* Embedded Video for Total Knee Replacement Page */}
           {conditionKey === "total-knee-replacement" && (
             <div className="condition-video-section">
               <h2 className="condition-video-heading">Patient Recovery Story</h2>
               <div className="condition-video-card">
-                <div className="video-frame-wrap">
-                  <iframe
-                    src={getYouTubeEmbedUrl(PATIENT_VIDEOS.tkr.url)}
-                    title="Patient Review after Total knee Replacement"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
+                <LazyVideoEmbed 
+                  videoUrl={PATIENT_VIDEOS.tkr.url}
+                  title="Patient Review after Total knee Replacement"
+                />
               </div>
             </div>
           )}
 
-          {/* Embedded Video for Stroke Page */}
           {conditionKey === "stroke" && (
             <div className="condition-video-section">
               <h2 className="condition-video-heading">Patient Recovery Story</h2>
               <div className="condition-video-card">
-                <div className="video-frame-wrap">
-                  <iframe
-                    src={getYouTubeEmbedUrl(PATIENT_VIDEOS.stroke.url)}
-                    title="Patient Review after Stroke (Paralysis)"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
+                <LazyVideoEmbed 
+                  videoUrl={PATIENT_VIDEOS.stroke.url}
+                  title="Patient Review after Stroke (Paralysis)"
+                />
               </div>
             </div>
           )}
 
-          {/* Exclusive 3-Step Recovery Journey for Total Knee Replacement */}
           {conditionKey === "total-knee-replacement" && (
             <div className="tkr-journey-section">
               <h2 className="tkr-journey-heading">
@@ -688,7 +773,7 @@ const ConditionPage = memo(({ conditionKey }) => {
 });
 ConditionPage.displayName = "ConditionPage";
 
-// 7. WhyChooseUs Section
+// 8. WhyChooseUs Section
 const WhyChooseUs = memo(() => {
   const points = [
     { t: "Home Visit", d: "Experience hospital-grade care without leaving your home.", i: "🏠" },
@@ -718,7 +803,7 @@ const WhyChooseUs = memo(() => {
 });
 WhyChooseUs.displayName = "WhyChooseUs";
 
-// 8. Contact Form Component
+// 9. Contact Form Component
 const ContactForm = memo(() => {
   const [formData, setFormData] = useState({ name: "", phone: "", problem: "" });
 
@@ -780,7 +865,7 @@ const ContactForm = memo(() => {
 });
 ContactForm.displayName = "ContactForm";
 
-// 9. Contact Section
+// 10. Contact Section
 const ContactSection = memo(() => {
   return (
     <section id="contact" className="contact-section" aria-labelledby="contact-section-heading">
@@ -825,7 +910,7 @@ const ContactSection = memo(() => {
 });
 ContactSection.displayName = "ContactSection";
 
-// 10. Coverage Areas Section
+// 11. Coverage Areas Section
 const CoverageAreas = memo(() => {
   const areas = ["Banjara Hills", "Jubilee Hills", "Gachibowli", "Kondapur", "Mehdipatnam", "Tolichowki", "Hitech City", "Attapur", "Aaramgarh", "Dilsukhnagar", "Chandrayangutta"];
   return (
@@ -847,7 +932,7 @@ const CoverageAreas = memo(() => {
 });
 CoverageAreas.displayName = "CoverageAreas";
 
-// 11. About Expert Section
+// 12. About Expert Section
 const AboutExpert = memo(() => {
   return (
     <section id="about" className="about-section" aria-labelledby="about-heading">
@@ -877,7 +962,7 @@ const AboutExpert = memo(() => {
 });
 AboutExpert.displayName = "AboutExpert";
 
-// 12. FAQ Section
+// 13. FAQ Section
 const FAQSection = memo(() => {
   const [activeFaq, setActiveFaq] = useState(null);
   
@@ -934,7 +1019,7 @@ const FAQSection = memo(() => {
 });
 FAQSection.displayName = "FAQSection";
 
-// 13. Footer Component
+// 14. Footer Component
 const Footer = memo(() => {
   return (
     <footer>
@@ -956,10 +1041,9 @@ const Footer = memo(() => {
 });
 Footer.displayName = "Footer";
 
-// Main Application with Client-Side Routing and Dynamic Scrolling
+// Main Application with Native Client-Side Routing and Dynamic Scrolling
 export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
-  const [lazyLoaded, setLazyLoaded] = useState(false);
   const triggerRef = useRef(null);
 
   useEffect(() => {
@@ -970,35 +1054,6 @@ export default function App() {
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
-
-  useEffect(() => {
-    if (
-      typeof window === "undefined" ||
-      !("IntersectionObserver" in window) ||
-      /bot|google|baidu|bing|msn|duckduckgo|teoma|slurp|yand/i.test(navigator.userAgent)
-    ) {
-      setLazyLoaded(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setLazyLoaded(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "400px" }
-    );
-
-    if (triggerRef.current) {
-      observer.observe(triggerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  preload(asli, { as: "image", fetchPriority: "high" });
 
   const handleNavigate = useCallback((path) => {
     window.history.pushState({}, "", path);
@@ -1051,22 +1106,12 @@ export default function App() {
           <>
             <Hero />
             <Services triggerRef={triggerRef} />
-            
-            {/* Patient Success Stories Video Carousel DIRECTLY AFTER Services */}
             <PatientSuccessVideos />
-
             <WhyChooseUs />
             <ContactSection />
             <CoverageAreas />
-
-            {lazyLoaded ? (
-              <>
-                <AboutExpert />
-                <FAQSection />
-              </>
-            ) : (
-              <div style={{ minHeight: "1500px" }} />
-            )}
+            <AboutExpert />
+            <FAQSection />
           </>
         )}
 
